@@ -1,0 +1,267 @@
+{
+  "schema": "iceberg_lineage_v1",
+  "catalog": "snowflake_horizon",
+  "database": "mercer_lake",
+  "storage": "s3://mercer-odi-lake/",
+  "nodes": [
+    {
+      "id": "sap_prod_ord",
+      "label": "sap.production_order",
+      "layer": "source",
+      "type": "erp",
+      "rows": "32M"
+    },
+    {
+      "id": "mes_work_unit",
+      "label": "mes.work_unit_event",
+      "layer": "source",
+      "type": "mes",
+      "rows": "1.4B"
+    },
+    {
+      "id": "pi_signal",
+      "label": "pi.sensor_signal",
+      "layer": "source",
+      "type": "historian",
+      "rows": "24B"
+    },
+    {
+      "id": "scada_tag",
+      "label": "scada.tag_reading",
+      "layer": "source",
+      "type": "scada",
+      "rows": "8.2B"
+    },
+    {
+      "id": "sn_workorder",
+      "label": "servicenow.work_order",
+      "layer": "source",
+      "type": "maintenance",
+      "rows": "410K"
+    },
+    {
+      "id": "sf_rma",
+      "label": "salesforce.rma",
+      "layer": "source",
+      "type": "crm",
+      "rows": "38K"
+    },
+    {
+      "id": "br_oee_event",
+      "label": "bronze.oee_event_raw",
+      "layer": "bronze",
+      "type": "iceberg",
+      "rows": "1.4B"
+    },
+    {
+      "id": "br_pi_signal",
+      "label": "bronze.pi_signal_raw",
+      "layer": "bronze",
+      "type": "iceberg",
+      "rows": "24B"
+    },
+    {
+      "id": "br_scada_tag",
+      "label": "bronze.scada_tag_raw",
+      "layer": "bronze",
+      "type": "iceberg",
+      "rows": "8.2B"
+    },
+    {
+      "id": "br_wo",
+      "label": "bronze.work_order_raw",
+      "layer": "bronze",
+      "type": "iceberg",
+      "rows": "410K"
+    },
+    {
+      "id": "si_shift_run",
+      "label": "silver.shift_run_clean",
+      "layer": "silver",
+      "type": "iceberg",
+      "rows": "24K"
+    },
+    {
+      "id": "si_asset",
+      "label": "silver.dim_asset",
+      "layer": "silver",
+      "type": "iceberg",
+      "rows": "612"
+    },
+    {
+      "id": "si_downtime",
+      "label": "silver.downtime_event",
+      "layer": "silver",
+      "type": "iceberg",
+      "rows": "8.4K"
+    },
+    {
+      "id": "si_sensor",
+      "label": "silver.sensor_signal_5m",
+      "layer": "silver",
+      "type": "iceberg",
+      "rows": "92M"
+    },
+    {
+      "id": "go_oee",
+      "label": "gold.fct_oee_shift",
+      "layer": "gold",
+      "type": "iceberg",
+      "rows": "24K"
+    },
+    {
+      "id": "go_downtime",
+      "label": "gold.fct_downtime_events",
+      "layer": "gold",
+      "type": "iceberg",
+      "rows": "8.4K"
+    },
+    {
+      "id": "go_quality",
+      "label": "gold.fct_quality_lot",
+      "layer": "gold",
+      "type": "iceberg",
+      "rows": "184K"
+    },
+    {
+      "id": "go_pred",
+      "label": "gold.fct_predictive_alerts",
+      "layer": "gold",
+      "type": "iceberg",
+      "rows": "8"
+    },
+    {
+      "id": "go_sustain",
+      "label": "gold.fct_energy_per_part",
+      "layer": "gold",
+      "type": "iceberg",
+      "rows": "24K"
+    },
+    {
+      "id": "pl_ops_agent",
+      "label": "platinum.sem_ops_intel",
+      "layer": "platinum",
+      "type": "iceberg",
+      "rows": "—"
+    }
+  ],
+  "edges": [
+    {
+      "from": "sap_prod_ord",
+      "to": "br_oee_event",
+      "via": "Fivetran"
+    },
+    {
+      "from": "mes_work_unit",
+      "to": "br_oee_event",
+      "via": "Fivetran"
+    },
+    {
+      "from": "pi_signal",
+      "to": "br_pi_signal",
+      "via": "Fivetran"
+    },
+    {
+      "from": "scada_tag",
+      "to": "br_scada_tag",
+      "via": "Fivetran"
+    },
+    {
+      "from": "sn_workorder",
+      "to": "br_wo",
+      "via": "Fivetran"
+    },
+    {
+      "from": "sf_rma",
+      "to": "br_wo",
+      "via": "Fivetran"
+    },
+    {
+      "from": "br_oee_event",
+      "to": "si_shift_run",
+      "via": "dbt"
+    },
+    {
+      "from": "br_pi_signal",
+      "to": "si_sensor",
+      "via": "dbt"
+    },
+    {
+      "from": "br_scada_tag",
+      "to": "si_sensor",
+      "via": "dbt"
+    },
+    {
+      "from": "br_wo",
+      "to": "si_downtime",
+      "via": "dbt"
+    },
+    {
+      "from": "br_oee_event",
+      "to": "si_asset",
+      "via": "dbt"
+    },
+    {
+      "from": "si_shift_run",
+      "to": "go_oee",
+      "via": "dbt"
+    },
+    {
+      "from": "si_downtime",
+      "to": "go_downtime",
+      "via": "dbt"
+    },
+    {
+      "from": "si_shift_run",
+      "to": "go_quality",
+      "via": "dbt"
+    },
+    {
+      "from": "si_sensor",
+      "to": "go_pred",
+      "via": "dbt"
+    },
+    {
+      "from": "si_shift_run",
+      "to": "go_sustain",
+      "via": "dbt"
+    },
+    {
+      "from": "go_oee",
+      "to": "pl_ops_agent",
+      "via": "dbt"
+    },
+    {
+      "from": "go_downtime",
+      "to": "pl_ops_agent",
+      "via": "dbt"
+    },
+    {
+      "from": "go_pred",
+      "to": "pl_ops_agent",
+      "via": "dbt"
+    }
+  ],
+  "consumers": [
+    {
+      "name": "Snowflake Cortex Agent — Plant Ops",
+      "reads": "platinum.sem_ops_intel"
+    },
+    {
+      "name": "Tableau exec dashboard",
+      "reads": "gold.fct_oee_shift, gold.fct_downtime_events"
+    },
+    {
+      "name": "Power BI plant directors",
+      "reads": "gold.fct_oee_shift"
+    },
+    {
+      "name": "Predictive maintenance app",
+      "reads": "gold.fct_predictive_alerts"
+    },
+    {
+      "name": "GM / Stellantis Scope-3 portal export",
+      "reads": "gold.fct_energy_per_part"
+    }
+  ]
+}

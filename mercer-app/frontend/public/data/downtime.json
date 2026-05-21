@@ -1,0 +1,246 @@
+{
+  "schema": "downtime_v1",
+  "window": "last_30_days",
+  "records": [
+    {
+      "plant_id": "TOL",
+      "plant": "Toledo OH",
+      "category": "Unplanned breakdown",
+      "hours_lost": 29.4,
+      "events": 6,
+      "est_cost_usd": 241080
+    },
+    {
+      "plant_id": "TOL",
+      "plant": "Toledo OH",
+      "category": "Planned PM",
+      "hours_lost": 20.9,
+      "events": 7,
+      "est_cost_usd": 79420
+    },
+    {
+      "plant_id": "TOL",
+      "plant": "Toledo OH",
+      "category": "Material shortage",
+      "hours_lost": 11.6,
+      "events": 15,
+      "est_cost_usd": 44080
+    },
+    {
+      "plant_id": "TOL",
+      "plant": "Toledo OH",
+      "category": "Changeover",
+      "hours_lost": 10.6,
+      "events": 10,
+      "est_cost_usd": 40280
+    },
+    {
+      "plant_id": "TOL",
+      "plant": "Toledo OH",
+      "category": "Setup / first-piece",
+      "hours_lost": 9.8,
+      "events": 14,
+      "est_cost_usd": 37240
+    },
+    {
+      "plant_id": "TOL",
+      "plant": "Toledo OH",
+      "category": "Tooling change",
+      "hours_lost": 6.5,
+      "events": 11,
+      "est_cost_usd": 24700
+    },
+    {
+      "plant_id": "TOL",
+      "plant": "Toledo OH",
+      "category": "Operator error",
+      "hours_lost": 4.1,
+      "events": 2,
+      "est_cost_usd": 15580
+    },
+    {
+      "plant_id": "TOL",
+      "plant": "Toledo OH",
+      "category": "Quality hold",
+      "hours_lost": 2.3,
+      "events": 7,
+      "est_cost_usd": 8740
+    },
+    {
+      "plant_id": "TOL",
+      "plant": "Toledo OH",
+      "category": "Power / utilities",
+      "hours_lost": 1.7,
+      "events": 16,
+      "est_cost_usd": 6460
+    },
+    {
+      "plant_id": "TOL",
+      "plant": "Toledo OH",
+      "category": "IT outage (MES/SCADA)",
+      "hours_lost": 1.4,
+      "events": 17,
+      "est_cost_usd": 8960
+    },
+    {
+      "plant_id": "STH",
+      "plant": "Sterling Heights MI",
+      "category": "Unplanned breakdown",
+      "hours_lost": 32.7,
+      "events": 8,
+      "est_cost_usd": 268140
+    },
+    {
+      "plant_id": "STH",
+      "plant": "Sterling Heights MI",
+      "category": "Planned PM",
+      "hours_lost": 15.7,
+      "events": 15,
+      "est_cost_usd": 59660
+    },
+    {
+      "plant_id": "STH",
+      "plant": "Sterling Heights MI",
+      "category": "Changeover",
+      "hours_lost": 11.3,
+      "events": 15,
+      "est_cost_usd": 42940
+    },
+    {
+      "plant_id": "STH",
+      "plant": "Sterling Heights MI",
+      "category": "Setup / first-piece",
+      "hours_lost": 9.7,
+      "events": 11,
+      "est_cost_usd": 36860
+    },
+    {
+      "plant_id": "STH",
+      "plant": "Sterling Heights MI",
+      "category": "Material shortage",
+      "hours_lost": 9.2,
+      "events": 13,
+      "est_cost_usd": 34960
+    },
+    {
+      "plant_id": "STH",
+      "plant": "Sterling Heights MI",
+      "category": "Tooling change",
+      "hours_lost": 6.7,
+      "events": 6,
+      "est_cost_usd": 25460
+    },
+    {
+      "plant_id": "STH",
+      "plant": "Sterling Heights MI",
+      "category": "Quality hold",
+      "hours_lost": 6.6,
+      "events": 15,
+      "est_cost_usd": 25080
+    },
+    {
+      "plant_id": "STH",
+      "plant": "Sterling Heights MI",
+      "category": "Power / utilities",
+      "hours_lost": 5.8,
+      "events": 15,
+      "est_cost_usd": 22040
+    },
+    {
+      "plant_id": "STH",
+      "plant": "Sterling Heights MI",
+      "category": "Operator error",
+      "hours_lost": 3.7,
+      "events": 14,
+      "est_cost_usd": 14060
+    },
+    {
+      "plant_id": "STH",
+      "plant": "Sterling Heights MI",
+      "category": "IT outage (MES/SCADA)",
+      "hours_lost": 3.6,
+      "events": 7,
+      "est_cost_usd": 23040
+    },
+    {
+      "plant_id": "IND",
+      "plant": "Indianapolis IN",
+      "category": "Changeover",
+      "hours_lost": 19.9,
+      "events": 6,
+      "est_cost_usd": 75620
+    },
+    {
+      "plant_id": "IND",
+      "plant": "Indianapolis IN",
+      "category": "Planned PM",
+      "hours_lost": 17.4,
+      "events": 3,
+      "est_cost_usd": 66120
+    },
+    {
+      "plant_id": "IND",
+      "plant": "Indianapolis IN",
+      "category": "Unplanned breakdown",
+      "hours_lost": 17,
+      "events": 2,
+      "est_cost_usd": 139400
+    },
+    {
+      "plant_id": "IND",
+      "plant": "Indianapolis IN",
+      "category": "Material shortage",
+      "hours_lost": 13.8,
+      "events": 10,
+      "est_cost_usd": 52440
+    },
+    {
+      "plant_id": "IND",
+      "plant": "Indianapolis IN",
+      "category": "Quality hold",
+      "hours_lost": 8.7,
+      "events": 4,
+      "est_cost_usd": 33060
+    },
+    {
+      "plant_id": "IND",
+      "plant": "Indianapolis IN",
+      "category": "Operator error",
+      "hours_lost": 7.5,
+      "events": 10,
+      "est_cost_usd": 28500
+    },
+    {
+      "plant_id": "IND",
+      "plant": "Indianapolis IN",
+      "category": "Setup / first-piece",
+      "hours_lost": 6.3,
+      "events": 2,
+      "est_cost_usd": 23940
+    },
+    {
+      "plant_id": "IND",
+      "plant": "Indianapolis IN",
+      "category": "Power / utilities",
+      "hours_lost": 4.4,
+      "events": 9,
+      "est_cost_usd": 16720
+    },
+    {
+      "plant_id": "IND",
+      "plant": "Indianapolis IN",
+      "category": "Tooling change",
+      "hours_lost": 4.2,
+      "events": 11,
+      "est_cost_usd": 15960
+    },
+    {
+      "plant_id": "IND",
+      "plant": "Indianapolis IN",
+      "category": "IT outage (MES/SCADA)",
+      "hours_lost": 3,
+      "events": 16,
+      "est_cost_usd": 19200
+    }
+  ]
+}

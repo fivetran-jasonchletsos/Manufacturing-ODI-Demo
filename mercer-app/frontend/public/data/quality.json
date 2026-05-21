@@ -1,0 +1,452 @@
+{
+  "schema": "quality_v1",
+  "ftq_by_family": [
+    {
+      "family": "Brake caliper",
+      "plants": [
+        "TOL",
+        "IND"
+      ],
+      "ftq_pct": 97,
+      "ftq_target_pct": 98.5,
+      "in_spec_units": 282592,
+      "rejected_units": 4183
+    },
+    {
+      "family": "Brake rotor",
+      "plants": [
+        "TOL"
+      ],
+      "ftq_pct": 97.8,
+      "ftq_target_pct": 99.2,
+      "in_spec_units": 289647,
+      "rejected_units": 1787
+    },
+    {
+      "family": "Brake assembly",
+      "plants": [
+        "TOL",
+        "IND"
+      ],
+      "ftq_pct": 96.69,
+      "ftq_target_pct": 98,
+      "in_spec_units": 235246,
+      "rejected_units": 4132
+    },
+    {
+      "family": "Wire harness PV",
+      "plants": [
+        "STH",
+        "IND"
+      ],
+      "ftq_pct": 97.44,
+      "ftq_target_pct": 99,
+      "in_spec_units": 390419,
+      "rejected_units": 3593
+    },
+    {
+      "family": "Wire prep",
+      "plants": [
+        "STH"
+      ],
+      "ftq_pct": 99.24,
+      "ftq_target_pct": 99.5,
+      "in_spec_units": 218010,
+      "rejected_units": 3628
+    }
+  ],
+  "pareto": [
+    {
+      "rank": 1,
+      "mode": "Crimp height out-of-spec",
+      "count": 412,
+      "pct_of_total": 32.6
+    },
+    {
+      "rank": 2,
+      "mode": "Bore diameter +.002in",
+      "count": 318,
+      "pct_of_total": 25.1
+    },
+    {
+      "rank": 3,
+      "mode": "Surface finish — pitting",
+      "count": 246,
+      "pct_of_total": 19.4
+    },
+    {
+      "rank": 4,
+      "mode": "Continuity fail (open)",
+      "count": 187,
+      "pct_of_total": 14.8
+    },
+    {
+      "rank": 5,
+      "mode": "Connector seat — partial",
+      "count": 102,
+      "pct_of_total": 8.1
+    }
+  ],
+  "ftq_trend": [
+    {
+      "date": "2026-02-20",
+      "ftq_pct": 98.49
+    },
+    {
+      "date": "2026-02-21",
+      "ftq_pct": 98.82
+    },
+    {
+      "date": "2026-02-22",
+      "ftq_pct": 98.68
+    },
+    {
+      "date": "2026-02-23",
+      "ftq_pct": 98.57
+    },
+    {
+      "date": "2026-02-24",
+      "ftq_pct": 98.46
+    },
+    {
+      "date": "2026-02-25",
+      "ftq_pct": 98.66
+    },
+    {
+      "date": "2026-02-26",
+      "ftq_pct": 98.72
+    },
+    {
+      "date": "2026-02-27",
+      "ftq_pct": 98.72
+    },
+    {
+      "date": "2026-02-28",
+      "ftq_pct": 98.71
+    },
+    {
+      "date": "2026-03-01",
+      "ftq_pct": 98.45
+    },
+    {
+      "date": "2026-03-02",
+      "ftq_pct": 98.36
+    },
+    {
+      "date": "2026-03-03",
+      "ftq_pct": 98.63
+    },
+    {
+      "date": "2026-03-04",
+      "ftq_pct": 98.37
+    },
+    {
+      "date": "2026-03-05",
+      "ftq_pct": 98.4
+    },
+    {
+      "date": "2026-03-06",
+      "ftq_pct": 98.26
+    },
+    {
+      "date": "2026-03-07",
+      "ftq_pct": 98.42
+    },
+    {
+      "date": "2026-03-08",
+      "ftq_pct": 98.21
+    },
+    {
+      "date": "2026-03-09",
+      "ftq_pct": 98.35
+    },
+    {
+      "date": "2026-03-10",
+      "ftq_pct": 98.16
+    },
+    {
+      "date": "2026-03-11",
+      "ftq_pct": 98.17
+    },
+    {
+      "date": "2026-03-12",
+      "ftq_pct": 98.38
+    },
+    {
+      "date": "2026-03-13",
+      "ftq_pct": 98.06
+    },
+    {
+      "date": "2026-03-14",
+      "ftq_pct": 98.27
+    },
+    {
+      "date": "2026-03-15",
+      "ftq_pct": 98.18
+    },
+    {
+      "date": "2026-03-16",
+      "ftq_pct": 98.21
+    },
+    {
+      "date": "2026-03-17",
+      "ftq_pct": 98.08
+    },
+    {
+      "date": "2026-03-18",
+      "ftq_pct": 98.11
+    },
+    {
+      "date": "2026-03-19",
+      "ftq_pct": 97.98
+    },
+    {
+      "date": "2026-03-20",
+      "ftq_pct": 98.08
+    },
+    {
+      "date": "2026-03-21",
+      "ftq_pct": 98.06
+    },
+    {
+      "date": "2026-03-22",
+      "ftq_pct": 98.23
+    },
+    {
+      "date": "2026-03-23",
+      "ftq_pct": 98.08
+    },
+    {
+      "date": "2026-03-24",
+      "ftq_pct": 98.24
+    },
+    {
+      "date": "2026-03-25",
+      "ftq_pct": 98.09
+    },
+    {
+      "date": "2026-03-26",
+      "ftq_pct": 98.24
+    },
+    {
+      "date": "2026-03-27",
+      "ftq_pct": 98.2
+    },
+    {
+      "date": "2026-03-28",
+      "ftq_pct": 98.28
+    },
+    {
+      "date": "2026-03-29",
+      "ftq_pct": 98.25
+    },
+    {
+      "date": "2026-03-30",
+      "ftq_pct": 98.21
+    },
+    {
+      "date": "2026-03-31",
+      "ftq_pct": 98
+    },
+    {
+      "date": "2026-04-01",
+      "ftq_pct": 98
+    },
+    {
+      "date": "2026-04-02",
+      "ftq_pct": 98.17
+    },
+    {
+      "date": "2026-04-03",
+      "ftq_pct": 98.1
+    },
+    {
+      "date": "2026-04-04",
+      "ftq_pct": 98.08
+    },
+    {
+      "date": "2026-04-05",
+      "ftq_pct": 98.26
+    },
+    {
+      "date": "2026-04-06",
+      "ftq_pct": 98.24
+    },
+    {
+      "date": "2026-04-07",
+      "ftq_pct": 98.35
+    },
+    {
+      "date": "2026-04-08",
+      "ftq_pct": 98.4
+    },
+    {
+      "date": "2026-04-09",
+      "ftq_pct": 98.31
+    },
+    {
+      "date": "2026-04-10",
+      "ftq_pct": 98.45
+    },
+    {
+      "date": "2026-04-11",
+      "ftq_pct": 98.36
+    },
+    {
+      "date": "2026-04-12",
+      "ftq_pct": 98.48
+    },
+    {
+      "date": "2026-04-13",
+      "ftq_pct": 98.39
+    },
+    {
+      "date": "2026-04-14",
+      "ftq_pct": 98.41
+    },
+    {
+      "date": "2026-04-15",
+      "ftq_pct": 98.64
+    },
+    {
+      "date": "2026-04-16",
+      "ftq_pct": 98.54
+    },
+    {
+      "date": "2026-04-17",
+      "ftq_pct": 98.57
+    },
+    {
+      "date": "2026-04-18",
+      "ftq_pct": 98.48
+    },
+    {
+      "date": "2026-04-19",
+      "ftq_pct": 98.5
+    },
+    {
+      "date": "2026-04-20",
+      "ftq_pct": 98.56
+    },
+    {
+      "date": "2026-04-21",
+      "ftq_pct": 98.73
+    },
+    {
+      "date": "2026-04-22",
+      "ftq_pct": 98.75
+    },
+    {
+      "date": "2026-04-23",
+      "ftq_pct": 98.77
+    },
+    {
+      "date": "2026-04-24",
+      "ftq_pct": 98.62
+    },
+    {
+      "date": "2026-04-25",
+      "ftq_pct": 98.63
+    },
+    {
+      "date": "2026-04-26",
+      "ftq_pct": 98.76
+    },
+    {
+      "date": "2026-04-27",
+      "ftq_pct": 98.72
+    },
+    {
+      "date": "2026-04-28",
+      "ftq_pct": 98.78
+    },
+    {
+      "date": "2026-04-29",
+      "ftq_pct": 98.62
+    },
+    {
+      "date": "2026-04-30",
+      "ftq_pct": 98.61
+    },
+    {
+      "date": "2026-05-01",
+      "ftq_pct": 98.86
+    },
+    {
+      "date": "2026-05-02",
+      "ftq_pct": 98.62
+    },
+    {
+      "date": "2026-05-03",
+      "ftq_pct": 98.7
+    },
+    {
+      "date": "2026-05-04",
+      "ftq_pct": 98.54
+    },
+    {
+      "date": "2026-05-05",
+      "ftq_pct": 98.84
+    },
+    {
+      "date": "2026-05-06",
+      "ftq_pct": 98.61
+    },
+    {
+      "date": "2026-05-07",
+      "ftq_pct": 98.53
+    },
+    {
+      "date": "2026-05-08",
+      "ftq_pct": 98.73
+    },
+    {
+      "date": "2026-05-09",
+      "ftq_pct": 98.52
+    },
+    {
+      "date": "2026-05-10",
+      "ftq_pct": 98.66
+    },
+    {
+      "date": "2026-05-11",
+      "ftq_pct": 98.72
+    },
+    {
+      "date": "2026-05-12",
+      "ftq_pct": 98.76
+    },
+    {
+      "date": "2026-05-13",
+      "ftq_pct": 98.67
+    },
+    {
+      "date": "2026-05-14",
+      "ftq_pct": 98.61
+    },
+    {
+      "date": "2026-05-15",
+      "ftq_pct": 98.35
+    },
+    {
+      "date": "2026-05-16",
+      "ftq_pct": 98.55
+    },
+    {
+      "date": "2026-05-17",
+      "ftq_pct": 98.59
+    },
+    {
+      "date": "2026-05-18",
+      "ftq_pct": 98.45
+    },
+    {
+      "date": "2026-05-19",
+      "ftq_pct": 98.35
+    },
+    {
+      "date": "2026-05-20",
+      "ftq_pct": 98.48
+    }
+  ]
+}

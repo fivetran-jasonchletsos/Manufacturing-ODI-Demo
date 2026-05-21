@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-05-21T08:00:00Z",
+  "snapshot_date": "2026-05-20",
+  "company": {
+    "name": "Mercer Manufacturing",
+    "tier": "Tier-1 auto-parts supplier",
+    "products": ["Brake systems", "Wire harnesses"],
+    "annual_revenue_usd": 1820000000,
+    "headcount": 4850,
+    "customers": ["GM", "Ford", "Stellantis", "Honda"]
+  },
+  "kpis": [
+    { "label": "Plants", "value": 3, "unit": "", "delta": null },
+    { "label": "Production lines", "value": 27, "unit": "", "delta": null },
+    { "label": "Parts shipped (YTD)", "value": 38420000, "unit": "units", "delta": "+4.2%" },
+    { "label": "Blended OEE", "value": 74.8, "unit": "%", "delta": "+1.6pp" },
+    { "label": "On-time delivery", "value": 96.4, "unit": "%", "delta": "+0.3pp" },
+    { "label": "First-time quality", "value": 98.7, "unit": "%", "delta": "+0.2pp" }
+  ],
+  "plants": [
+    { "id": "TOL", "name": "Toledo OH", "lines": 9, "headcount": 1620, "product_focus": "Brake calipers, rotors", "lat": 41.6528, "lon": -83.5379 },
+    { "id": "STH", "name": "Sterling Heights MI", "lines": 10, "headcount": 1780, "product_focus": "Wire harnesses (passenger)", "lat": 42.5803, "lon": -83.0302 },
+    { "id": "IND", "name": "Indianapolis IN", "lines": 8, "headcount": 1450, "product_focus": "Brake assemblies, harnesses (LV truck)", "lat": 39.7684, "lon": -86.1581 }
+  ],
+  "top_issues": [
+    { "rank": 1, "plant": "Sterling Heights MI", "issue": "Crimp-press #7 — predicted bearing failure in 6-9 days", "severity": "critical", "owner": "Maintenance" },
+    { "rank": 2, "plant": "Toledo OH", "issue": "Line 3 unplanned downtime trending +18% week-over-week", "severity": "high", "owner": "Ops" },
+    { "rank": 3, "plant": "Indianapolis IN", "issue": "Caliper machining FTQ dropped to 96.8% (target 98.5%)", "severity": "high", "owner": "Quality" }
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "schema": "sustainability_v1",
+  "scope3_note": "GM and Stellantis require Scope-3 part-level emissions data starting 2026 model year. Mercer reports per-part kgCO2e through customer portal.",
+  "by_plant": [
+    {
+      "plant_id": "TOL",
+      "plant": "Toledo OH",
+      "kwh_per_part": 4.2,
+      "kwh_per_part_yoy_pct": -3.1,
+      "co2e_kg_per_part": 1.84,
+      "co2e_yoy_pct": -4.2,
+      "water_gal_per_part": 0.31,
+      "water_yoy_pct": -1.6,
+      "waste_tonnes_month": 142,
+      "waste_yoy_pct": -6.3,
+      "scope1_tonnes_co2e": 8400,
+      "scope2_tonnes_co2e": 21800,
+      "scope3_tonnes_co2e": 184200
+    },
+    {
+      "plant_id": "STH",
+      "plant": "Sterling Heights MI",
+      "kwh_per_part": 1.8,
+      "kwh_per_part_yoy_pct": -2.4,
+      "co2e_kg_per_part": 0.71,
+      "co2e_yoy_pct": -3,
+      "water_gal_per_part": 0.06,
+      "water_yoy_pct": 0.4,
+      "waste_tonnes_month": 38,
+      "waste_yoy_pct": -2.8,
+      "scope1_tonnes_co2e": 1200,
+      "scope2_tonnes_co2e": 9400,
+      "scope3_tonnes_co2e": 92400
+    },
+    {
+      "plant_id": "IND",
+      "plant": "Indianapolis IN",
+      "kwh_per_part": 2.6,
+      "kwh_per_part_yoy_pct": -1.8,
+      "co2e_kg_per_part": 1.12,
+      "co2e_yoy_pct": -2.4,
+      "water_gal_per_part": 0.12,
+      "water_yoy_pct": -0.6,
+      "waste_tonnes_month": 72,
+      "waste_yoy_pct": -4.1,
+      "scope1_tonnes_co2e": 3100,
+      "scope2_tonnes_co2e": 14600,
+      "scope3_tonnes_co2e": 128400
+    }
+  ],
+  "monthly_co2e_trend": [
+    {
+      "month": "2024-12",
+      "scope1": 3558,
+      "scope2": 12157,
+      "scope3": 68499
+    },
+    {
+      "month": "2025-01",
+      "scope1": 3539,
+      "scope2": 12236,
+      "scope3": 70731
+    },
+    {
+      "month": "2025-02",
+      "scope1": 3594,
+      "scope2": 12556,
+      "scope3": 70786
+    },
+    {
+      "month": "2025-03",
+      "scope1": 3591,
+      "scope2": 12270,
+      "scope3": 71012
+    },
+    {
+      "month": "2025-04",
+      "scope1": 3750,
+      "scope2": 12236,
+      "scope3": 71262
+    },
+    {
+      "month": "2025-05",
+      "scope1": 3563,
+      "scope2": 12402,
+      "scope3": 72191
+    },
+    {
+      "month": "2025-06",
+      "scope1": 3493,
+      "scope2": 12327,
+      "scope3": 71336
+    },
+    {
+      "month": "2025-07",
+      "scope1": 3671,
+      "scope2": 12943,
+      "scope3": 73337
+    },
+    {
+      "month": "2025-08",
+      "scope1": 3763,
+      "scope2": 12386,
+      "scope3": 73821
+    },
+    {
+      "month": "2025-09",
+      "scope1": 3740,
+      "scope2": 12762,
+      "scope3": 72818
+    },
+    {
+      "month": "2025-10",
+      "scope1": 3810,
+      "scope2": 12554,
+      "scope3": 72798
+    },
+    {
+      "month": "2025-11",
+      "scope1": 3558,
+      "scope2": 13148,
+      "scope3": 73830
+    },
+    {
+      "month": "2025-12",
+      "scope1": 3558,
+      "scope2": 12740,
+      "scope3": 73721
+    },
+    {
+      "month": "2026-01",
+      "scope1": 3718,
+      "scope2": 13066,
+      "scope3": 75975
+    },
+    {
+      "month": "2026-02",
+      "scope1": 3672,
+      "scope2": 12882,
+      "scope3": 75907
+    },
+    {
+      "month": "2026-03",
+      "scope1": 3720,
+      "scope2": 13377,
+      "scope3": 77114
+    },
+    {
+      "month": "2026-04",
+      "scope1": 3894,
+      "scope2": 13379,
+      "scope3": 77172
+    },
+    {
+      "month": "2026-05",
+      "scope1": 3822,
+      "scope2": 13238,
+      "scope3": 76986
+    }
+  ]
+}

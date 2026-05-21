@@ -1,0 +1,154 @@
+{
+  "schema": "pipeline_v1",
+  "refreshed_at": "2026-05-20T11:42:00Z",
+  "connectors": [
+    {
+      "name": "SAP S/4HANA",
+      "source": "Mercer ERP (production)",
+      "mechanism": "Fivetran",
+      "status": "healthy",
+      "last_sync_minutes": 12,
+      "rows_synced_24h": 482000,
+      "latency_target_min": 15
+    },
+    {
+      "name": "Rockwell FactoryTalk MES",
+      "source": "Plant floor MES",
+      "mechanism": "Fivetran",
+      "status": "healthy",
+      "last_sync_minutes": 7,
+      "rows_synced_24h": 1840000,
+      "latency_target_min": 10
+    },
+    {
+      "name": "OSIsoft PI (Process Historian)",
+      "source": "Sensor signals · OT",
+      "mechanism": "Fivetran",
+      "status": "healthy",
+      "last_sync_minutes": 4,
+      "rows_synced_24h": 24800000,
+      "latency_target_min": 5
+    },
+    {
+      "name": "Ignition SCADA",
+      "source": "Line controllers · OT",
+      "mechanism": "Fivetran",
+      "status": "degraded",
+      "last_sync_minutes": 22,
+      "rows_synced_24h": 920000,
+      "latency_target_min": 10,
+      "note": "Sterling Heights endpoint slow — investigating"
+    },
+    {
+      "name": "Salesforce",
+      "source": "Customer / RMA records",
+      "mechanism": "Fivetran",
+      "status": "healthy",
+      "last_sync_minutes": 18,
+      "rows_synced_24h": 14200,
+      "latency_target_min": 60
+    },
+    {
+      "name": "ServiceNow",
+      "source": "Maintenance work orders",
+      "mechanism": "Fivetran",
+      "status": "healthy",
+      "last_sync_minutes": 9,
+      "rows_synced_24h": 8600,
+      "latency_target_min": 30
+    },
+    {
+      "name": "Workday",
+      "source": "Headcount / labor",
+      "mechanism": "Fivetran",
+      "status": "healthy",
+      "last_sync_minutes": 240,
+      "rows_synced_24h": 1840,
+      "latency_target_min": 1440
+    }
+  ],
+  "layers": [
+    {
+      "layer": "bronze",
+      "name": "Raw landing (Iceberg)",
+      "tables": 184,
+      "last_run_min": 4,
+      "status": "healthy",
+      "tests_passing": 312,
+      "tests_total": 312
+    },
+    {
+      "layer": "silver",
+      "name": "Conformed + cleansed",
+      "tables": 76,
+      "last_run_min": 11,
+      "status": "healthy",
+      "tests_passing": 248,
+      "tests_total": 252
+    },
+    {
+      "layer": "gold",
+      "name": "Business marts",
+      "tables": 28,
+      "last_run_min": 14,
+      "status": "healthy",
+      "tests_passing": 142,
+      "tests_total": 142
+    },
+    {
+      "layer": "platinum",
+      "name": "Agent-facing semantic",
+      "tables": 9,
+      "last_run_min": 14,
+      "status": "healthy",
+      "tests_passing": 58,
+      "tests_total": 58
+    }
+  ],
+  "recent_runs": [
+    {
+      "run_id": "r_8842",
+      "model": "gold.fct_oee_shift",
+      "status": "success",
+      "duration_s": 38,
+      "rows": 24300,
+      "started_at": "2026-05-20T11:28:00Z"
+    },
+    {
+      "run_id": "r_8841",
+      "model": "gold.fct_downtime_events",
+      "status": "success",
+      "duration_s": 22,
+      "rows": 8420,
+      "started_at": "2026-05-20T11:26:00Z"
+    },
+    {
+      "run_id": "r_8840",
+      "model": "silver.dim_asset",
+      "status": "success",
+      "duration_s": 14,
+      "rows": 612,
+      "started_at": "2026-05-20T11:24:00Z"
+    },
+    {
+      "run_id": "r_8839",
+      "model": "gold.fct_predictive_alerts",
+      "status": "success",
+      "duration_s": 52,
+      "rows": 8,
+      "started_at": "2026-05-20T11:22:00Z"
+    },
+    {
+      "run_id": "r_8838",
+      "model": "silver.stg_pi_signal",
+      "status": "success",
+      "duration_s": 188,
+      "rows": 24800000,
+      "started_at": "2026-05-20T11:18:00Z"
+    }
+  ],
+  "failure_sim": {
+    "enabled": true,
+    "note": "Toggle SCADA Sterling Heights endpoint to FAIL — show downstream dbt test on gold.fct_oee_shift redirect to a stale-data alert."
+  }
+}
