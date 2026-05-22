@@ -8,6 +8,8 @@ import PredictivePage from './pages/PredictivePage';
 import SustainabilityPage from './pages/SustainabilityPage';
 import PolicyPage from './pages/PolicyPage';
 import QualityPage from './pages/QualityPage';
+import RelatedPartsPage from './pages/RelatedPartsPage';
+import PartDetailPage from './pages/PartDetailPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 export default function App() {
@@ -23,6 +25,8 @@ export default function App() {
           <Route path="/pipeline" element={<PipelinePage />} />
           <Route path="/policy" element={<PolicyPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/related" element={<RelatedPartsPage />} />
+          <Route path="/parts/:sku" element={<PartDetailPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

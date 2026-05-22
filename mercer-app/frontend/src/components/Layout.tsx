@@ -6,6 +6,7 @@ const NAV_ITEMS: [string, string][] = [
   ['/quality', 'Quality'],
   ['/predictive', 'Predictive Maintenance'],
   ['/sustainability', 'Sustainability'],
+  ['/related', 'Related Parts'],
   ['/architecture', 'ODI Architecture'],
   ['/pipeline', 'Pipeline'],
   ['/policy', 'OT/IT Policy'],
