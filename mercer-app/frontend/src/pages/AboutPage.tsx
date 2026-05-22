@@ -5,7 +5,7 @@ export default function AboutPage() {
     <div>
       <Hero
         eyebrow="ODI Reference Build · Manufacturing"
-        title="About Mercer Manufacturing"
+        title="About Vantex Manufacturing"
         subtitle="A reference build that demonstrates how a Tier-1 auto-parts supplier can run plant operations on Fivetran's Open Data Infrastructure — OT data from process historians and SCADA joined to IT data from SAP and ServiceNow, landed in an open Iceberg lake, transformed by dbt, and exposed to humans and agents through one governed semantic layer."
       />
 
@@ -122,7 +122,7 @@ export default function AboutPage() {
           <div className="eyebrow text-safety-bright mb-2">Disclaimer</div>
           <p className="text-white/80 leading-relaxed text-sm">
             <strong className="text-safety">All data shown is synthetic.</strong>{' '}
-            Mercer Manufacturing is a fictional Tier-1 auto-parts supplier modeled on the
+            Vantex Manufacturing is a fictional Tier-1 auto-parts supplier modeled on the
             structure of real-world brake-and-harness vendors. No real OEM, supplier, plant,
             or sensor data is included. This site exists to demonstrate the Fivetran ODI
             architecture pattern.
@@ -137,12 +137,12 @@ const PILLARS = [
   {
     tag: 'Pillar 1',
     title: 'Customer-owned storage',
-    body: 'Every byte of OT and IT data lands in Mercer\'s S3 bucket as Apache Iceberg tables. Fivetran writes; Mercer reads with Snowflake, Athena, Spark — or anything else.',
+    body: 'Every byte of OT and IT data lands in Vantex\'s S3 bucket as Apache Iceberg tables. Fivetran writes; Vantex reads with Snowflake, Athena, Spark — or anything else.',
   },
   {
     tag: 'Pillar 2',
     title: 'Open table format',
-    body: 'Iceberg v2 gives Mercer ACID transactions on streaming sensor data, schema evolution across MES versions, and time-travel for any historian replay.',
+    body: 'Iceberg v2 gives Vantex ACID transactions on streaming sensor data, schema evolution across MES versions, and time-travel for any historian replay.',
   },
   {
     tag: 'Pillar 3',
@@ -165,7 +165,7 @@ const STACK = [
 const DATA_SOURCES = [
   {
     title: 'SAP S/4HANA',
-    description: 'Mercer\'s ERP of record. Holds the production order, BOM, customer master, and the EDI 856 ship-notice stream back to GM, Ford, Stellantis, and Honda.',
+    description: 'Vantex\'s ERP of record. Holds the production order, BOM, customer master, and the EDI 856 ship-notice stream back to GM, Ford, Stellantis, and Honda.',
     provides: 'Production orders · BOMs · shipments · customer pricing',
   },
   {

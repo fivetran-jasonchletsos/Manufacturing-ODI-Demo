@@ -1,6 +1,6 @@
 {
   "schema": "sustainability_v1",
-  "scope3_note": "GM and Stellantis require Scope-3 part-level emissions data starting 2026 model year. Mercer reports per-part kgCO2e through customer portal.",
+  "scope3_note": "GM and Stellantis require Scope-3 part-level emissions data starting 2026 model year. Vantex reports per-part kgCO2e through customer portal.",
   "by_plant": [
     {
       "plant_id": "TOL",

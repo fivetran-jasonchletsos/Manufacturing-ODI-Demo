@@ -97,7 +97,7 @@ const ANSWERS = [
   },
   {
     q: 'Q: Why don\'t predictive-maintenance models work in production?',
-    a: 'Because most predictive models are trained on weekly historian exports, scored against stale dimension tables, and write recommendations into a tool the maintenance team doesn\'t use. With ODI, the model reads the same silver.sensor_signal_5m and silver.dim_asset that the plant director sees, scores in Snowflake, and writes back to gold.fct_predictive_alerts — which is what the dashboard shows.',
+    a: 'Because most predictive models are trained on weekly historian exports, scored against stale dimension tables, and write recommendations into a tool the maintenance team doesn\'t use. With ODI, the model reads the same conformed sensor and asset tables the plant director sees, scores in Snowflake, and writes scored alerts back into the governed gold layer — the same rows the dashboard shows.',
   },
   {
     q: 'Q: Doesn\'t this violate OT/IT separation?',

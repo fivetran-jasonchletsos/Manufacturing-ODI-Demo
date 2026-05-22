@@ -35,7 +35,7 @@ export default function QualityPage() {
       <Hero
         eyebrow="Quality + Downtime"
         title="Where the parts go wrong"
-        subtitle="First-time quality (FTQ) by part family, the Pareto of defect modes across the last 30 days, and the top downtime causes by plant — all from the same gold tables."
+        subtitle="First-time quality (FTQ) by part family, the Pareto of defect modes across the last 30 days, and the top downtime causes by plant — all from the same governed data layer."
       />
 
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">

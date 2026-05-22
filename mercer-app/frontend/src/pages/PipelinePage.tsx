@@ -5,7 +5,7 @@ import { Loading, ErrorState } from '../components/Skeleton';
 
 type Pipeline = {
   refreshed_at: string;
-  connectors: { name: string; source: string; mechanism: string; status: string; last_sync_minutes: number; rows_synced_24h: number; latency_target_min: number; note?: string }[];
+  connectors: { name: string; source: string; mechanism: string; fivetran_id?: string; fivetran_url?: string; status: string; last_sync_minutes: number; rows_synced_24h: number; latency_target_min: number; note?: string }[];
   layers: { layer: string; name: string; tables: number; last_run_min: number; status: string; tests_passing: number; tests_total: number }[];
   recent_runs: { run_id: string; model: string; status: string; duration_s: number; rows: number; started_at: string }[];
   failure_sim: { enabled: boolean; note: string };
@@ -28,7 +28,7 @@ export default function PipelinePage() {
 
   const connectors = pipe.data.connectors.map((c) => {
     if (simulateFailure && c.name.includes('SCADA')) {
-      return { ...c, status: 'failed', last_sync_minutes: 47, note: 'Sterling Heights endpoint unreachable since 11:24 — downstream dbt test on gold.fct_oee_shift will redirect to stale-data alert.' };
+      return { ...c, status: 'failed', last_sync_minutes: 47, note: 'Sterling Heights endpoint unreachable since 11:24 — downstream dbt test on the OEE shift mart will redirect to stale-data alert.' };
     }
     return c;
   });
@@ -60,28 +60,58 @@ export default function PipelinePage() {
             <thead>
               <tr>
                 <th>Connector</th>
+                <th>Fivetran ID</th>
                 <th>Source</th>
-                <th>Mechanism</th>
                 <th>Status</th>
                 <th>Last sync</th>
                 <th>Rows / 24h</th>
                 <th>Target latency</th>
+                <th>Fivetran</th>
               </tr>
             </thead>
             <tbody>
               {connectors.map((c) => (
                 <tr key={c.name}>
                   <td className="font-mono text-xs font-semibold">{c.name}</td>
+                  <td className="font-mono text-[11px] text-graphite-500">{c.fivetran_id ?? '—'}</td>
                   <td className="text-sm text-graphite-700">{c.source}</td>
-                  <td><span className="chip dark">{c.mechanism}</span></td>
                   <td><span className={`chip ${STATUS_CHIP[c.status] ?? 'silver'}`}>{c.status}</span></td>
                   <td className="font-mono text-xs tabular">{c.last_sync_minutes}m ago</td>
                   <td className="font-mono text-xs tabular">{c.rows_synced_24h.toLocaleString()}</td>
                   <td className="font-mono text-xs tabular">{c.latency_target_min}m</td>
+                  <td>
+                    {c.fivetran_url ? (
+                      <a
+                        href={c.fivetran_url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-wider font-bold text-safety-dim hover:text-graphite-800 whitespace-nowrap"
+                      >
+                        Open in Fivetran
+                        <svg viewBox="0 0 12 12" className="h-2.5 w-2.5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                          <path d="M2 10L10 2M5 2h5v5" />
+                        </svg>
+                      </a>
+                    ) : '—'}
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+
+        <div className="mt-4">
+          <a
+            href="https://fivetran.com/dashboard/connectors"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-safety text-graphite-900 font-mono text-xs uppercase tracking-wider font-bold border-2 border-safety hover:bg-safety-bright transition-colors"
+          >
+            Open Fivetran connector dashboard
+            <svg viewBox="0 0 12 12" className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <path d="M2 10L10 2M5 2h5v5" />
+            </svg>
+          </a>
         </div>
         {(simulateFailure || connectors.some((c) => c.note)) && (
           <div className="mt-3 space-y-2">

@@ -22,7 +22,7 @@ const DEMOS = [
   { key: 'techsaas',        name: 'SaaS Pulse',           industry: 'Tech · SaaS analytics',                     url: 'https://fivetran-jasonchletsos.github.io/TechSaaS-ODI-Demo/', accent: '#059669' },
   { key: 'supplychain',     name: 'Manifest',             industry: 'Supply chain · Logistics',                  url: 'https://fivetran-jasonchletsos.github.io/SupplyChain-ODI-Demo/', accent: '#0891b2' },
   { key: 'lifesci',         name: 'Cohort',               industry: 'Life sciences · Clinical research',         url: 'https://fivetran-jasonchletsos.github.io/LifeSci-ODI-Demo/', accent: '#be185d' },
-  { key: 'manufacturing',   name: 'Mercer Manufacturing', industry: 'Manufacturing · Auto-parts (Tier-1)',       url: 'https://fivetran-jasonchletsos.github.io/Manufacturing-ODI-Demo/', accent: '#ffd60a' },
+  { key: 'manufacturing',   name: 'Vantex Manufacturing', industry: 'Manufacturing · Auto-parts (Tier-1)',       url: 'https://fivetran-jasonchletsos.github.io/Manufacturing-ODI-Demo/', accent: '#ffd60a' },
   { key: 'mission-control', name: 'Mission Control',      industry: 'Admin · Governance + observability',       url: 'https://fivetran-jasonchletsos.github.io/ODI-Mission-Control/', accent: '#22d3ee' },
 ];
 const CURRENT_DEMO = 'manufacturing';
@@ -46,7 +46,7 @@ export default function Layout() {
               </div>
               <div className="leading-tight min-w-0">
                 <div className="font-display text-xl sm:text-2xl tracking-wide truncate">
-                  Mercer Manufacturing
+                  Vantex Manufacturing
                 </div>
                 <div className="mt-0.5 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.16em] text-safety-bright">
                   Plant Operations Intelligence
@@ -128,11 +128,11 @@ export default function Layout() {
               <div className="h-7 w-7 flex items-center justify-center bg-safety">
                 <MercerMark className="h-4 w-4 text-graphite-800" />
               </div>
-              <div className="font-display text-white text-lg tracking-wide">Mercer Manufacturing</div>
+              <div className="font-display text-white text-lg tracking-wide">Vantex Manufacturing</div>
             </div>
             <p className="leading-relaxed text-white/60">
               Tier-1 auto-parts supplier. Brake systems and wire harnesses. Three plants: Toledo OH, Sterling Heights MI, Indianapolis IN.
-              Synthetic data — ODI architecture demonstration only.
+              Synthetic data — ODI architecture demonstration only. Not a real company.
             </p>
           </div>
           <div>
@@ -151,7 +151,7 @@ export default function Layout() {
         </div>
         <div className="border-t border-white/10">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 text-[11px] text-white/50 flex flex-col sm:flex-row gap-1 sm:items-center sm:justify-between">
-            <div>© 2026 Mercer Manufacturing ODI Demo · Fivetran Open Data Infrastructure</div>
+            <div>© 2026 Vantex Manufacturing ODI Demo · Fivetran Open Data Infrastructure</div>
             <div>Synthetic snapshot · For Summit walkthrough</div>
           </div>
         </div>

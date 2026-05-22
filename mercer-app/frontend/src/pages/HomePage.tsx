@@ -37,7 +37,7 @@ export default function HomePage() {
       <Hero
         eyebrow={`Plant Operations · Snapshot ${summary.data.snapshot_date}`}
         title="Three plants, one signal"
-        subtitle="Mercer Manufacturing ships brake systems and wire harnesses to GM, Ford, Stellantis, and Honda. This portal unifies SAP, MES, process historian, and SCADA into one governed semantic layer — plant directors and agents read the same gold tables."
+        subtitle="Vantex Manufacturing ships brake systems and wire harnesses to GM, Ford, Stellantis, and Honda. This portal unifies SAP, MES, process historian, and SCADA into one governed semantic layer — plant directors and agents read the same gold tables."
         rightSlot={
           <div className="rivet-border bg-graphite-900 px-6 py-5 text-right">
             <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-safety-bright">Annual revenue</div>

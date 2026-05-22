@@ -36,7 +36,7 @@ export default function SustainabilityPage() {
       <Hero
         eyebrow="Scope 1 · Scope 2 · Scope 3"
         title="OEM Scope-3 reporting, automated"
-        subtitle="GM and Stellantis require Mercer to report per-part embedded emissions starting with 2026 model year. With ODI, the Scope-3 export is a dbt model reading gold.fct_energy_per_part — not a manual spreadsheet pulled from three different systems."
+        subtitle="GM and Stellantis require Vantex to report per-part embedded emissions starting with 2026 model year. With ODI, the Scope-3 export is a dbt model reading a governed energy-per-part mart — not a manual spreadsheet pulled from three different systems."
         rightSlot={
           <div className="rivet-border bg-graphite-900 px-6 py-5 text-right">
             <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-safety-bright">Annual CO2e</div>
