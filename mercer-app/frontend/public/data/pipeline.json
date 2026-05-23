@@ -6,7 +6,7 @@
       "name": "SAP S/4HANA",
       "source": "Vantex ERP (production)",
       "mechanism": "Fivetran",
-      "fivetran_id": "sap_s4hana_vantex_prod",
+      "fivetran_id": "managing_illusive",
       "fivetran_url": "https://fivetran.com/dashboard/connectors/sap_s4hana_vantex_prod",
       "status": "healthy",
       "last_sync_minutes": 12,
@@ -17,7 +17,7 @@
       "name": "Rockwell FactoryTalk MES",
       "source": "Plant floor MES",
       "mechanism": "Fivetran",
-      "fivetran_id": "rockwell_mes_vantex",
+      "fivetran_id": "strikers_repeat",
       "fivetran_url": "https://fivetran.com/dashboard/connectors/rockwell_mes_vantex",
       "status": "healthy",
       "last_sync_minutes": 7,
@@ -26,9 +26,9 @@
     },
     {
       "name": "OSIsoft PI (Process Historian)",
-      "source": "Sensor signals · OT",
+      "source": "Sensor signals \u00b7 OT",
       "mechanism": "Fivetran",
-      "fivetran_id": "osisoft_pi_vantex",
+      "fivetran_id": "tweezers_roughness",
       "fivetran_url": "https://fivetran.com/dashboard/connectors/osisoft_pi_vantex",
       "status": "healthy",
       "last_sync_minutes": 4,
@@ -37,21 +37,21 @@
     },
     {
       "name": "Ignition SCADA",
-      "source": "Line controllers · OT",
+      "source": "Line controllers \u00b7 OT",
       "mechanism": "Fivetran",
-      "fivetran_id": "ignition_scada_vantex",
+      "fivetran_id": "glance_splashy",
       "fivetran_url": "https://fivetran.com/dashboard/connectors/ignition_scada_vantex",
       "status": "degraded",
       "last_sync_minutes": 22,
       "rows_synced_24h": 920000,
       "latency_target_min": 10,
-      "note": "Sterling Heights endpoint slow — investigating"
+      "note": "Sterling Heights endpoint slow \u2014 investigating"
     },
     {
       "name": "Salesforce",
       "source": "Customer / RMA records",
       "mechanism": "Fivetran",
-      "fivetran_id": "salesforce_vantex_crm",
+      "fivetran_id": "weather_casually",
       "fivetran_url": "https://fivetran.com/dashboard/connectors/salesforce_vantex_crm",
       "status": "healthy",
       "last_sync_minutes": 18,
@@ -62,7 +62,7 @@
       "name": "ServiceNow",
       "source": "Maintenance work orders",
       "mechanism": "Fivetran",
-      "fivetran_id": "servicenow_vantex_cmms",
+      "fivetran_id": "bunch_wisdom",
       "fivetran_url": "https://fivetran.com/dashboard/connectors/servicenow_vantex_cmms",
       "status": "healthy",
       "last_sync_minutes": 9,
@@ -73,7 +73,7 @@
       "name": "Workday",
       "source": "Headcount / labor",
       "mechanism": "Fivetran",
-      "fivetran_id": "workday_vantex_hris",
+      "fivetran_id": "haunt_org",
       "fivetran_url": "https://fivetran.com/dashboard/connectors/workday_vantex_hris",
       "status": "healthy",
       "last_sync_minutes": 240,
@@ -163,6 +163,6 @@
   ],
   "failure_sim": {
     "enabled": true,
-    "note": "Toggle SCADA Sterling Heights endpoint to FAIL — show how an OT outage propagates downstream: the dbt test on the OEE shift mart detects stale data and triggers an alert."
+    "note": "Toggle SCADA Sterling Heights endpoint to FAIL \u2014 show how an OT outage propagates downstream: the dbt test on the OEE shift mart detects stale data and triggers an alert."
   }
 }
