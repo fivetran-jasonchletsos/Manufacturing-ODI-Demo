@@ -2,7 +2,7 @@
 //
 // Pre-computes a top-K nearest-neighbor list for each part/SKU using
 // weighted Jaccard overlap across five dimensions.  Mirrors what a
-// Snowflake Cortex embedding pipeline would produce in production —
+// a vector embedding pipeline would produce in production —
 // the math runs locally so the static site ships the graph without a
 // runtime API.
 

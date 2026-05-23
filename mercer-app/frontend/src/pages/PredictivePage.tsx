@@ -36,7 +36,7 @@ export default function PredictivePage() {
       <Hero
         eyebrow="Predictive Maintenance · Agent-Generated"
         title="Eight machines flagged"
-        subtitle="A Snowflake Cortex agent reads the sensor signal and asset dimension tables every fifteen minutes, scores each asset, and writes scored alerts to the gold layer. These are the eight assets above threshold right now."
+        subtitle="A predictive-maintenance agent reads the sensor signal and asset dimension tables every fifteen minutes, scores each asset, and writes scored alerts to the gold layer. These are the eight assets above threshold right now."
         rightSlot={
           <div className="rivet-border bg-graphite-900 px-6 py-5 text-right">
             <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-safety-bright">Failure cost avoided</div>

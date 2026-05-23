@@ -1,0 +1,60 @@
+{
+  "agents": [
+    {
+      "id": "explorer",
+      "name": "Explorer Agent",
+      "code": "EXP",
+      "color": "#ffd60a",
+      "role": "Surfaces the relevant silver models for the plant operations question. Starts from the yield problem, not the file tree.",
+      "tools": ["status", "search"],
+      "sample_input": "Find models related to first-pass yield, brake-caliper line, defect modes, shift grain, and supplier lots.",
+      "responsibilities": [
+        "Runs status to confirm the dbt project is parsed and healthy",
+        "Runs search with manufacturing vocabulary against model names, columns, and descriptions",
+        "Hands the candidate model list to Summary"
+      ]
+    },
+    {
+      "id": "summary",
+      "name": "Summary Agent",
+      "code": "SUM",
+      "color": "#7c3aed",
+      "role": "Explains the grain of each upstream, the join keys, and where the gap is. Decides before any SQL whether the data can answer the question.",
+      "tools": ["describe", "lineage"],
+      "sample_input": "For those models, show grain, key columns, and how they join. Where is the gap between what exists and what plant ops asked for?",
+      "responsibilities": [
+        "Runs describe on each candidate model to confirm grain",
+        "Runs lineage to validate the join path",
+        "Names the new grain the gold table has to land on"
+      ]
+    },
+    {
+      "id": "worker",
+      "name": "Worker Agent",
+      "code": "WRK",
+      "color": "#ea580c",
+      "role": "Authors the SQL and model file. Creates gold.fct_yield_by_plant_line_shift_daily with the right CTE structure, supplier-lot join, defect-mode aggregation, and final select.",
+      "tools": ["warehouse", "dbt_show", "file edits", "model generation"],
+      "sample_input": "Create gold.fct_yield_by_plant_line_shift_daily as a table materialization. Validate grain with a deterministic dbt_show slice before committing the file.",
+      "responsibilities": [
+        "Runs warehouse and dbt_show on a targeted slice to validate proposed grain",
+        "Writes the SQL file with header comments, CTEs, supplier-lot join, and final aggregation",
+        "Materializes the model to the gold schema on Iceberg"
+      ]
+    },
+    {
+      "id": "verification",
+      "name": "Verification Agent",
+      "code": "VER",
+      "color": "#16a34a",
+      "role": "Adds dbt tests, schema contract, and ownership. Validates lineage and confirms downstream consumers can read the new asset.",
+      "tools": ["describe", "lineage", "dbt_show"],
+      "sample_input": "Add tests covering uniqueness on (plant_id, line_id, shift_id, production_date) and not-null on first_pass_yield. Confirm lineage picks up the new gold table.",
+      "responsibilities": [
+        "Writes the YAML companion with description, tests, and schema contract",
+        "Confirms uniqueness and not-null tests pass against the materialized slice",
+        "Updates lineage so downstream consumers pick the asset up immediately"
+      ]
+    }
+  ]
+}

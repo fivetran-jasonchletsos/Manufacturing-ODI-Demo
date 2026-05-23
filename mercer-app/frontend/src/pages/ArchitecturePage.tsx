@@ -40,7 +40,7 @@ export default function ArchitecturePage() {
       <Hero
         eyebrow="Reference Architecture"
         title="ODI for the plant floor"
-        subtitle="Five operational systems land into one open Iceberg lake. dbt builds the bronze → silver → gold → platinum layers. Snowflake, Athena, Tableau, Power BI, and Cortex agents all read the same governed tables."
+        subtitle="Five operational systems land into one open Iceberg lake. dbt builds the bronze → silver → gold → platinum layers. Snowflake, Athena, Tableau, Power BI, and dbt-wizard sub-agents all read the same governed tables."
       />
 
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">

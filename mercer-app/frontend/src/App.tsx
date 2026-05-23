@@ -11,6 +11,10 @@ import QualityPage from './pages/QualityPage';
 import RelatedPartsPage from './pages/RelatedPartsPage';
 import PartDetailPage from './pages/PartDetailPage';
 import NotFoundPage from './pages/NotFoundPage';
+import OdiDbtWizardPage from './pages/OdiDbtWizardPage';
+import WizardScenarioPage from './pages/WizardScenarioPage';
+import WizardLivePage from './pages/WizardLivePage';
+import WizardOutcomePage from './pages/WizardOutcomePage';
 
 export default function App() {
   return (
@@ -27,6 +31,10 @@ export default function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/related" element={<RelatedPartsPage />} />
           <Route path="/parts/:sku" element={<PartDetailPage />} />
+          <Route path="/dbt-wizard" element={<OdiDbtWizardPage />} />
+          <Route path="/dbt-wizard/scenario" element={<WizardScenarioPage />} />
+          <Route path="/dbt-wizard/live" element={<WizardLivePage />} />
+          <Route path="/dbt-wizard/outcome" element={<WizardOutcomePage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

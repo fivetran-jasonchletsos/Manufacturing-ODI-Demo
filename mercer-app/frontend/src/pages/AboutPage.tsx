@@ -73,7 +73,7 @@ export default function AboutPage() {
                 <ul className="space-y-1 text-graphite-700">
                   <li>• One semantic layer for OEE · downtime · quality · sensors · work orders</li>
                   <li>• Sensor stream lands in Iceberg every five minutes</li>
-                  <li>• Cortex agents read gold tables — same numbers as the dashboard</li>
+                  <li>• Agents read gold tables — same numbers as the dashboard</li>
                   <li>• Customer Scope-3 export is a dbt model, not a spreadsheet</li>
                 </ul>
               </div>
@@ -147,7 +147,7 @@ const PILLARS = [
   {
     tag: 'Pillar 3',
     title: 'Agents read gold tables',
-    body: 'Snowflake Cortex agents and predictive-maintenance models read the same gold tables the plant director sees. One semantic layer for humans and agents.',
+    body: 'dbt-wizard sub-agents and predictive-maintenance models read the same gold tables the plant director sees. One semantic layer for humans and agents.',
   },
 ];
 
@@ -158,7 +158,7 @@ const STACK = [
   { layer: 'Catalog',   name: 'Snowflake Horizon',              note: 'Iceberg REST catalog + tag-based access control by plant' },
   { layer: 'Transform', name: 'dbt-snowflake',                  note: 'Bronze → silver → gold → platinum · 297 models · 712 tests' },
   { layer: 'Query',     name: 'Snowflake + AWS Athena',         note: 'Both engines read the same Iceberg tables — no replication' },
-  { layer: 'Agents',    name: 'Snowflake Cortex Agents',        note: 'Read platinum.sem_ops_intel · same SQL plant directors run' },
+  { layer: 'Agents',    name: 'dbt-wizard Sub-agents',          note: 'Read platinum.sem_ops_intel · author missing gold models in 90s' },
   { layer: 'Frontend',  name: 'React 18 + Vite + Tailwind 3',   note: 'Static SPA on GitHub Pages · reads JSON snapshot · Recharts' },
 ];
 

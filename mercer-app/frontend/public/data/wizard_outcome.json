@@ -1,0 +1,104 @@
+{
+  "materialized_model": "gold.fct_yield_by_plant_line_shift_daily",
+  "row_count": 312,
+  "tests_passed": 8,
+  "tests_written": "5 column-level + 1 combination uniqueness + 1 not-null on first_pass_yield + 1 accepted-range [0,1]",
+  "build_seconds": 90,
+  "before": {
+    "nodes": [
+      { "id": "int_production_runs", "name": "silver.int_production_runs", "layer": "intermediate" },
+      { "id": "int_supplier_lots",   "name": "silver.int_supplier_lots",   "layer": "intermediate" },
+      { "id": "int_process_params",  "name": "silver.int_process_params",  "layer": "intermediate" },
+      { "id": "int_defect_codes",    "name": "silver.int_defect_codes",    "layer": "intermediate" },
+      { "id": "gap",                 "name": "gold.fct_yield_by_plant_line_shift_daily", "layer": "gap", "built": false }
+    ],
+    "edges": [
+      { "from": "int_production_runs", "to": "gap" },
+      { "from": "int_supplier_lots",   "to": "gap" },
+      { "from": "int_process_params",  "to": "gap" },
+      { "from": "int_defect_codes",    "to": "gap" }
+    ]
+  },
+  "after": {
+    "nodes": [
+      { "id": "int_production_runs", "name": "silver.int_production_runs", "layer": "intermediate" },
+      { "id": "int_supplier_lots",   "name": "silver.int_supplier_lots",   "layer": "intermediate" },
+      { "id": "int_process_params",  "name": "silver.int_process_params",  "layer": "intermediate" },
+      { "id": "int_defect_codes",    "name": "silver.int_defect_codes",    "layer": "intermediate" },
+      { "id": "new_gold",            "name": "gold.fct_yield_by_plant_line_shift_daily", "layer": "gold", "built": true, "new": true },
+      { "id": "plant_ops_dash",      "name": "Plant Ops Dashboard",        "layer": "consumer" },
+      { "id": "oee_report",          "name": "OEE Weekly Report",          "layer": "consumer" }
+    ],
+    "edges": [
+      { "from": "int_production_runs", "to": "new_gold" },
+      { "from": "int_supplier_lots",   "to": "new_gold" },
+      { "from": "int_process_params",  "to": "new_gold" },
+      { "from": "int_defect_codes",    "to": "new_gold" },
+      { "from": "new_gold", "to": "plant_ops_dash" },
+      { "from": "new_gold", "to": "oee_report" }
+    ]
+  },
+  "root_cause": {
+    "headline": "Vendor B forged-blank tolerance band is 30 microns wider than Vendor A — explains 9 of 11 defect modes on Wichita second shift",
+    "detail": "The supplier swap on 2026-05-19 moved the Wichita BRK-CAL line from Vendor A (tolerance band ±15 µm) to Vendor B (tolerance band ±45 µm). The wider tolerance drives bore-diameter variance on the caliper housing, causing 9 of 11 second-shift defect modes this week. The press parameters were not re-tuned to compensate. Kansas City retained Vendor A blanks and shows no yield change. Roll back the blank-supplier swap on the Wichita line — do not re-tune the press.",
+    "affected_cohort": "Wichita BRK-CAL line, second shift, 2026-05-19 to present",
+    "fallout_count": 9,
+    "total_reviewed": 11
+  },
+  "without_wizard": {
+    "label": "Without dbt-wizard",
+    "summary": "Question enters the analytics backlog. Plant Ops review happens without the answer.",
+    "metrics": [
+      { "label": "Time to model",          "value": "3 to 5 days" },
+      { "label": "Engineer hours",          "value": "10 to 16h" },
+      { "label": "Tests written",           "value": "ad-hoc" },
+      { "label": "Lineage entries",         "value": "manual" },
+      { "label": "Documentation",           "value": "PR-time only" },
+      { "label": "Plant Ops Review status", "value": "no answer" }
+    ],
+    "narrative": [
+      "Director files the request. It enters the analytics backlog at priority B.",
+      "Data engineer scopes the work the following week — after the Plant Ops review.",
+      "Engineer writes SQL from scratch, joining four silver marts by hand.",
+      "Tests, YAML, and contract get bolted on at PR time. Sometimes.",
+      "Plant ops team cannot isolate root cause before the review meeting.",
+      "Scrap keeps accumulating on the Wichita line at $1.8M/month run rate."
+    ]
+  },
+  "with_wizard": {
+    "label": "With dbt-wizard",
+    "summary": "Four sub-agents surface the upstreams, author the SQL, write the tests, and materialize the asset in 90 seconds.",
+    "metrics": [
+      { "label": "Time to model",          "value": "90 seconds" },
+      { "label": "Engineer hours",          "value": "0.0h authored" },
+      { "label": "Tests written",           "value": "5 column + 1 combination + 1 not-null + 1 range" },
+      { "label": "Lineage entries",         "value": "auto, 4 upstream" },
+      { "label": "Documentation",           "value": "in YAML on materialize" },
+      { "label": "Plant Ops Review status", "value": "root cause in hand" }
+    ],
+    "narrative": [
+      "Explorer runs status and search. Returns the four silver upstream candidates.",
+      "Summary runs describe and lineage. Confirms join path and names the new grain.",
+      "Worker runs dbt_show on a 14-day Wichita slice. Validates the proposed grain.",
+      "Worker authors fct_yield_by_plant_line_shift_daily.sql with CTEs and final SELECT.",
+      "Verification writes the YAML — description, schema contract, 8 tests, ownership.",
+      "Worker materializes the table to Iceberg. Verification confirms downstream lineage.",
+      "Director presents root-cause finding: vendor B tolerance band. Roll back the blank swap."
+    ]
+  },
+  "governance": [
+    { "label": "Tests written",            "value": "5 column-level + 1 combination + 1 not-null + 1 range" },
+    { "label": "Schema contract",          "value": "enforced on materialize" },
+    { "label": "Lineage upstreams",        "value": "4 declared, 4 validated" },
+    { "label": "Documentation",            "value": "auto-written in YAML" },
+    { "label": "Ownership",               "value": "plant_analytics" },
+    { "label": "Tag",                      "value": "ai_built · quality" },
+    { "label": "Iceberg table format",     "value": "v2 · Parquet · ZSTD" },
+    { "label": "Open Catalog registration","value": "complete" }
+  ],
+  "hero": {
+    "label": "Root cause identified 9 hours before the Plant Ops Review. Scrap clock stopped.",
+    "value": "90 seconds",
+    "note": "From Director question to materialized Iceberg gold table — versioned, tested, documented, lineage-tracked. The Wichita team now knows the supplier swap is the gap: Vendor B's ±45 µm tolerance band drives bore-diameter variance on the caliper housing. Roll back the blank swap. Do not re-tune the press."
+  }
+}

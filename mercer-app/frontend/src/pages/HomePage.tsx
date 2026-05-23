@@ -114,6 +114,49 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* dbt-wizard hero callout */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-8">
+        <div className="steel-card p-0 overflow-hidden" style={{ borderLeft: '4px solid var(--safety)' }}>
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr,auto] gap-0">
+            <div className="p-6">
+              <div className="eyebrow mb-2">dbt-wizard · Build-time AI</div>
+              <h2 className="font-display text-2xl text-[var(--graphite-deep)] mb-2">
+                First-pass yield on the brake-caliper line dropped 4.2% in Wichita. Kansas City is flat. Why?
+              </h2>
+              <p className="text-sm text-[var(--steel)] max-w-2xl leading-relaxed mb-4">
+                No <span className="font-mono text-xs bg-[var(--bone)] border border-[var(--hairline)] px-1.5 py-0.5">gold.fct_yield_by_plant_line_shift_daily</span> exists.
+                Plant Ops Review in 9 hours. Manual build ETA: 3 to 5 days. dbt-wizard ETA: 90 seconds.
+                At risk: <strong>$1.8M scrap + rework per month</strong>.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <Link
+                  to="/dbt-wizard/scenario"
+                  className="inline-flex items-center gap-2 font-semibold text-sm px-4 py-2.5 transition-opacity hover:opacity-90"
+                  style={{ background: 'var(--safety)', color: 'var(--graphite-deep)' }}
+                >
+                  See the scenario
+                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                    <path d="M5 12h14M13 5l7 7-7 7" />
+                  </svg>
+                </Link>
+                <Link
+                  to="/dbt-wizard"
+                  className="inline-flex items-center gap-2 font-semibold text-sm px-4 py-2.5 border border-[var(--hairline)] bg-white hover:bg-[var(--bone)] transition-colors text-[var(--graphite)]"
+                >
+                  How dbt-wizard works
+                </Link>
+              </div>
+            </div>
+            <div className="hidden lg:flex flex-col items-center justify-center px-8 py-6 bg-[var(--graphite-deep)] text-white gap-3" style={{ minWidth: 220 }}>
+              <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/60">dbt-wizard result</div>
+              <div className="font-display text-5xl font-semibold" style={{ color: 'var(--safety)', lineHeight: 1 }}>90s</div>
+              <div className="font-mono text-[11px] text-white/60 text-center">question to<br />materialized model</div>
+              <div className="text-[11px] text-white/40 font-mono text-center">vs 3–5 day manual build</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-12">
         <div className="flex items-baseline justify-between mb-4">
           <h2 className="font-display text-2xl">Plants</h2>

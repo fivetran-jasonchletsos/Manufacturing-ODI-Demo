@@ -9,6 +9,7 @@ const NAV_ITEMS: [string, string][] = [
   ['/related', 'Related Parts'],
   ['/architecture', 'ODI Architecture'],
   ['/pipeline', 'Pipeline'],
+  ['/dbt-wizard', 'dbt-wizard'],
   ['/policy', 'OT/IT Policy'],
   ['/about', 'About'],
 ];
@@ -153,7 +154,20 @@ export default function Layout() {
         <div className="border-t border-white/10">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 text-[11px] text-white/50 flex flex-col sm:flex-row gap-1 sm:items-center sm:justify-between">
             <div>© 2026 Vantex Manufacturing ODI Demo · Fivetran Open Data Infrastructure</div>
-            <div>Synthetic snapshot · For Summit walkthrough</div>
+            <div className="flex items-center gap-3">
+              <span>Synthetic snapshot · For Summit walkthrough</span>
+              <a
+                href={`${(import.meta.env.BASE_URL ?? '/').replace(/\/$/, '')}/Vantex-Manufacturing-3min-Demo-Runbook.pdf`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider border border-safety/40 bg-safety/10 text-safety hover:bg-safety/20 transition-colors"
+              >
+                3-min runbook
+                <svg viewBox="0 0 14 14" className="h-2.5 w-2.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M2 7h10M7 2l5 5-5 5" />
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </footer>

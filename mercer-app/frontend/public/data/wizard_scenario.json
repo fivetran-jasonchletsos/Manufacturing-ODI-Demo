@@ -1,0 +1,46 @@
+{
+  "company": "Vantex Manufacturing",
+  "request_id": "BLD-2026-05-23-0011",
+  "requested_by": "Diane Kowalski, Plant Ops Director",
+  "requested_at": "2026-05-23T06:14:00-06:00",
+  "timezone_label": "Friday 06:14 CST",
+  "question": "Why did first-pass yield on the brake-caliper line drop 4.2% in Wichita this week, while Kansas City stayed flat?",
+  "metric_label": "First-pass yield by plant, line, and shift — daily",
+  "metric_code": "gold.fct_yield_by_plant_line_shift_daily",
+  "sop_meeting_at": "2026-05-23T15:00:00-06:00",
+  "sop_meeting_label": "Friday 15:00 CST · Plant Ops Review",
+  "target_schema": "gold",
+  "target_model": "fct_yield_by_plant_line_shift_daily",
+  "target_grain": "one row per (plant_id, line_id, shift_id, production_date)",
+  "prior_crisis_id": "INC-2026-05-19-0044",
+  "plant_system": "Vantex Wichita KS · Brake Systems",
+  "product_line": "Brake Caliper Assembly",
+  "upstream_models": [
+    {
+      "model": "silver.int_production_runs",
+      "layer": "intermediate",
+      "grain": "run_id",
+      "description": "MES production runs from Rockwell FactoryTalk. Includes plant_id, line_id, shift_id, production_date, parts_produced, parts_scrapped, and defect_mode_code."
+    },
+    {
+      "model": "silver.int_supplier_lots",
+      "layer": "intermediate",
+      "grain": "lot_id",
+      "description": "Supplier lot receipts from SAP. Includes vendor_id, material_code, lot_received_at, tolerance_spec, and tolerance_actual. Links to production runs via lot_id on the MES job card."
+    },
+    {
+      "model": "silver.int_process_params",
+      "layer": "intermediate",
+      "grain": "run_id · parameter_id",
+      "description": "OSIsoft PI process historian parameters per run. Press force, temperature, cycle time, and forging-spec deviation. Sampled every 4 seconds — aggregated to run grain."
+    },
+    {
+      "model": "silver.int_defect_codes",
+      "layer": "intermediate",
+      "grain": "defect_id",
+      "description": "Quality inspection defect codes from the MES QA module. Includes defect_mode, dimension_affected, and inspector_id. Links to production runs via run_id."
+    }
+  ],
+  "manual_time_days": "3 to 5 days",
+  "build_room_seconds": 90
+}
