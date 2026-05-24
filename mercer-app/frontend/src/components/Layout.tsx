@@ -1,20 +1,134 @@
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 
-const NAV_ITEMS: [string, string][] = [
-  ['/', 'Plant Floor'],
-  ['/quality', 'Quality'],
-  ['/predictive', 'Predictive Maintenance'],
-  ['/sustainability', 'Sustainability'],
-  ['/related', 'Related Parts'],
-  ['/architecture', 'ODI Architecture'],
-  ['/pipeline', 'Pipeline'],
-  ['/dbt-wizard/scenario', 'Scenario'],
-  ['/dbt-wizard/live', 'Live'],
-  ['/dbt-wizard/outcome', 'Outcome'],
-  ['/policy', 'OT/IT Policy'],
-  ['/about', 'About'],
+// Canonical nav across all ODI demos. Persona-first links (industry-
+// specific) + two dropdown clusters at the end:
+//   • dbt-Wizard ▾ — narrative (Overview / Scenario / Live / Outcome)
+//   • ODI ▾       — plumbing  (Architecture / Pipeline / About / OT-IT Policy)
+type NavEntry =
+  | { kind: 'link'; to: string; label: string }
+  | { kind: 'group'; label: string; rootTo: string; matchPrefixes: string[]; children: { to: string; label: string }[] };
+
+const NAV: NavEntry[] = [
+  { kind: 'link', to: '/',             label: 'Plant Floor' },
+  { kind: 'link', to: '/quality',      label: 'Quality' },
+  { kind: 'link', to: '/predictive',   label: 'Predictive Maintenance' },
+  { kind: 'link', to: '/sustainability', label: 'Sustainability' },
+  { kind: 'link', to: '/related',      label: 'Related Parts' },
+  {
+    kind: 'group',
+    label: 'dbt-Wizard',
+    rootTo: '/dbt-wizard',
+    matchPrefixes: ['/dbt-wizard'],
+    children: [
+      { to: '/dbt-wizard',           label: 'Overview' },
+      { to: '/dbt-wizard/scenario',  label: 'Scenario' },
+      { to: '/dbt-wizard/live',      label: 'Live build' },
+      { to: '/dbt-wizard/outcome',   label: 'Outcome' },
+    ],
+  },
+  {
+    kind: 'group',
+    label: 'ODI',
+    rootTo: '/architecture',
+    matchPrefixes: ['/architecture', '/pipeline', '/policy', '/about'],
+    children: [
+      { to: '/architecture', label: 'Architecture' },
+      { to: '/pipeline',     label: 'Pipeline' },
+      { to: '/policy',       label: 'OT/IT Policy' },
+      { to: '/about',        label: 'About' },
+    ],
+  },
 ];
+
+// Flat list for the mobile grid (groups become inline rows).
+const NAV_FLAT: { to: string; label: string }[] = NAV.flatMap((e) =>
+  e.kind === 'link' ? [{ to: e.to, label: e.label }] : e.children.map((c) => ({ to: c.to, label: `${e.label} · ${c.label}` })),
+);
+
+// ─── NavEntryEl — dark-theme variant (safety-yellow accent on graphite) ─────
+function NavEntryEl({ entry, pathname }: { entry: NavEntry; pathname: string }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
+
+  useEffect(() => { setOpen(false); }, [pathname]);
+
+  if (entry.kind === 'link') {
+    return (
+      <NavLink
+        to={entry.to}
+        end={entry.to === '/'}
+        className={({ isActive }) =>
+          `relative px-2.5 py-2 font-semibold tracking-tight text-[13px] whitespace-nowrap transition-colors ${
+            isActive ? 'text-safety' : 'text-white/85 hover:text-white'
+          }`
+        }
+      >
+        {({ isActive }) => (
+          <>
+            {entry.label}
+            {isActive && <span className="absolute left-2.5 right-2.5 -bottom-[1px] h-[3px] bg-safety" />}
+          </>
+        )}
+      </NavLink>
+    );
+  }
+
+  const isActive = entry.matchPrefixes.some((p) => pathname === p || pathname.startsWith(p + '/'));
+  return (
+    <span ref={ref} className="relative inline-block">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        className={`relative px-2.5 py-2 font-semibold tracking-tight text-[13px] whitespace-nowrap inline-flex items-center gap-1 transition-colors ${
+          isActive ? 'text-safety' : 'text-white/85 hover:text-white'
+        }`}
+      >
+        {entry.label}
+        <svg width="9" height="9" viewBox="0 0 10 10" aria-hidden className={`transition-transform ${open ? 'rotate-180' : ''}`}>
+          <path d="M2 4 L5 7 L8 4" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+        {isActive && (
+          <span className="absolute left-2.5 right-5 -bottom-[1px] h-[3px] bg-safety" />
+        )}
+      </button>
+      {open && (
+        <span role="menu" className="absolute left-0 top-full mt-1 min-w-[200px] border border-white/15 bg-graphite-900 shadow-xl overflow-hidden z-50">
+          {entry.children.map((c) => (
+            <NavLink
+              key={c.to}
+              to={c.to}
+              end={c.to === '/'}
+              className={({ isActive: ia }) =>
+                `block px-4 py-2.5 text-[13px] font-medium transition-colors ${
+                  ia ? 'bg-white/10 text-safety' : 'text-white/85 hover:bg-white/10 hover:text-white'
+                }`
+              }
+            >
+              {c.label}
+            </NavLink>
+          ))}
+        </span>
+      )}
+    </span>
+  );
+}
 
 const DEMOS = [
   { key: 'tax-assessment',  name: 'Allegheny County Tax', industry: 'Public sector · Property assessment',     url: 'https://fivetran-jasonchletsos.github.io/tax-assessment-databricks-demo/', accent: '#dc2626' },
@@ -59,24 +173,8 @@ export default function Layout() {
             </Link>
 
             <nav className="hidden lg:flex items-center gap-0.5 text-sm">
-              {NAV_ITEMS.map(([to, label]) => (
-                <NavLink
-                  key={to}
-                  to={to}
-                  end={to === '/'}
-                  className={({ isActive }) =>
-                    `relative px-2.5 py-2 font-semibold tracking-tight text-[13px] transition-colors ${
-                      isActive ? 'text-safety' : 'text-white/85 hover:text-white'
-                    }`
-                  }
-                >
-                  {({ isActive }) => (
-                    <>
-                      {label}
-                      {isActive && <span className="absolute left-2.5 right-2.5 -bottom-[1px] h-[3px] bg-safety" />}
-                    </>
-                  )}
-                </NavLink>
+              {NAV.map((entry) => (
+                <NavEntryEl key={entry.kind === 'link' ? entry.to : entry.label} entry={entry} pathname={location.pathname} />
               ))}
             </nav>
 
@@ -98,9 +196,9 @@ export default function Layout() {
           {mobileOpen && (
             <div className="lg:hidden pb-4 border-t border-white/10 pt-3">
               <nav className="grid grid-cols-2 gap-1 text-sm">
-                {NAV_ITEMS.map(([to, label]) => (
+                {NAV_FLAT.map(({ to, label }) => (
                   <NavLink
-                    key={to}
+                    key={to + label}
                     to={to}
                     end={to === '/'}
                     className={({ isActive }) =>
