@@ -14,8 +14,8 @@ import Hero from '../components/Hero';
 import { AliveMedallion, type SourceNode, type EngineNode, type ConsumerRole } from '../components/AliveMedallion';
 
 const MFG_SOURCES: SourceNode[] = [
-  { id: 'mes',     label: 'MES Production',      sub: 'SQL Server log-CDC',     logo: 'sqlserver', freshness: '38s lag',  status: 'healthy' },
-  { id: 'sap',     label: 'SAP S/4HANA',          sub: 'Oracle LogMiner',         logo: 'oracle',    freshness: '90s lag',  status: 'healthy' },
+  { id: 'mes',     label: 'MES Production',      sub: 'SQL Server log-CDC',     logo: 'sqlserver', freshness: '38s lag',  status: 'healthy', pipelineUrl: 'https://fivetran.com/dashboard/connectors/subsisted_grease' },
+  { id: 'sap',     label: 'SAP S/4HANA',          sub: 'Oracle Binary Log Reader',         logo: 'oracle',    freshness: '90s lag',  status: 'healthy', pipelineUrl: 'https://fivetran.com/dashboard/connectors/intestine_conditioning' },
   { id: 'iiot',    label: 'IIoT Sensor Stream',   sub: 'OPC UA / Kafka stream',   logo: 'hl7',       freshness: 'live',     status: 'healthy', streaming: true },
   { id: 'quality', label: 'Quality Test Data',    sub: 'Daily lab uploads',       logo: 'cms',       freshness: '6h lag',   status: 'healthy' },
 ];
@@ -344,7 +344,9 @@ export default function ArchitecturePage() {
             <p className="text-sm text-graphite-600 mt-1">
               Tests defined in dbt Labs run on every build, against the same Iceberg tables every
               engine reads. Failures block promotion to the next layer &mdash; bad data never
-              reaches the plant-floor screen.
+              reaches the plant-floor screen. Paired with the Great Expectations checkpoints below:
+              GX runs suite-based expectations against raw landings; dbt enforces SQL-native contracts
+              across bronze, silver, and gold.
             </p>
           </div>
           <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-wider text-white shrink-0" style={{ background: '#FF694A' }}>
@@ -389,6 +391,9 @@ export default function ArchitecturePage() {
           <span className="uppercase tracking-wider font-bold">dbt build · merged into Fivetran</span>
         </div>
       </section>
+
+      {/* ── Data Quality — Great Expectations (Fivetran-stewarded OSS) ───── */}
+      <GreatExpectationsPanel />
 
       {/* ── Before / After — what ODI actually replaces ──────────────────── */}
       <BeforeAfterPanel />
@@ -715,6 +720,146 @@ function Policy({ label, value }: { label: string; value: string }) {
 // =============================================================================
 // BeforeAfterPanel — 14 hops + 3 copies → 5 hops + 1 copy
 // =============================================================================
+// =============================================================================
+// GreatExpectationsPanel — Fivetran-stewarded OSS data-quality gate
+// =============================================================================
+interface GxSuite {
+  suite: string;
+  table: string;
+  layer: 'bronze' | 'silver' | 'gold';
+  expectations: number;
+  passing: number;
+  last_run: string;
+  why: string;
+}
+
+const GX_SUITES: GxSuite[] = [
+  { suite: 'vantex.mes.work_orders.completeness',     table: 'bronze.mes__work_orders',        layer: 'bronze', expectations: 18, passing: 18, last_run: '07:14:08', why: 'work_order_id never null · unique within ingest_date · plant_id in ISO plant-code set · routing_id references mes__routings' },
+  { suite: 'vantex.iiot.sensor_readings.ranges',      table: 'bronze.iiot__sensor_readings',   layer: 'bronze', expectations: 16, passing: 16, last_run: '07:14:11', why: 'temperature C between -40 and 250 · vibration g between 0 and 50 · machine_id resolves to dim_machines · timestamp monotonic per machine' },
+  { suite: 'vantex.sap.material_master.referential',  table: 'bronze.sap__material_master',    layer: 'bronze', expectations: 14, passing: 14, last_run: '07:13:42', why: 'material_id unique · uom_code in ISO 80000 value-set · plant_code references sap__plants · bom_root flag boolean' },
+  { suite: 'vantex.quality.lab_results.lots',         table: 'bronze.quality__lab_results',    layer: 'bronze', expectations: 13, passing: 12, last_run: '07:13:58', why: 'lot_number matches Vantex traceability regex · test_method in approved-method list · result_value within spec window per part · sampled_at < received_at' },
+  { suite: 'vantex.silver.work_order_spine.contract', table: 'silver.int_work_order_spine',    layer: 'silver', expectations: 22, passing: 22, last_run: '07:18:21', why: 'one row per work_order_id · order_date <= completion_date · bom hierarchy depth resolves · part_number references dim_parts' },
+  { suite: 'vantex.silver.machine_state.continuity',  table: 'silver.int_machine_state_minutes', layer: 'silver', expectations: 15, passing: 15, last_run: '07:18:33', why: 'no time-series gaps > 90s per machine · state_code in {RUN, IDLE, FAULT, MAINT, OFF} · plant_id non-null · OEE inputs all present' },
+  { suite: 'vantex.gold.oee.bounds',                  table: 'gold.fct_oee_hourly',            layer: 'gold',   expectations: 17, passing: 17, last_run: '07:22:14', why: 'availability/performance/quality all between 0 and 1 · OEE = product within 0.1% tolerance · production_hour aligns with calendar dim · row count = machines × 24' },
+  { suite: 'vantex.gold.products.output_contract',    table: 'gold.dim_parts',                 layer: 'gold',   expectations: 19, passing: 19, last_run: '07:22:27', why: 'part_number unique · iso_product_category in TS 16949 set · uom_code conformed · supersession chain acyclic · effective_date <= expiration_date' },
+  { suite: 'vantex.gold.predictive.risk_distribution',table: 'gold.fct_predictive_maintenance',layer: 'gold',   expectations: 11, passing: 11, last_run: '07:22:39', why: 'risk_score between 0 and 1 · model_version pinned to release tag · machine_id resolves · risk_window in {7d, 30d, 90d}' },
+];
+
+function GreatExpectationsPanel() {
+  const totals = GX_SUITES.reduce(
+    (a, s) => ({ exp: a.exp + s.expectations, pass: a.pass + s.passing, suites: a.suites + 1 }),
+    { exp: 0, pass: 0, suites: 0 },
+  );
+  const warns = totals.exp - totals.pass;
+
+  return (
+    <section className="mb-8 steel-card overflow-hidden" style={cardStyle}>
+      <header className="flex items-start justify-between gap-4" style={cardHeaderStyle}>
+        <div>
+          <div className="eyebrow" style={{ color: '#9a3412' }}>Data Quality · Great Expectations</div>
+          <h2 className="font-display text-xl text-graphite-900 mt-0.5">
+            Validation runs on Bronze before anything reaches Silver.
+          </h2>
+          <p className="text-sm text-graphite-600 mt-1 max-w-3xl">
+            Expectation suites define what "valid" looks like for each Vantex table — sensor
+            ranges that match physical limits, traceability lot numbers that match the supplier
+            regex, BOM references that resolve. A failed expectation blocks promotion. Same
+            lake, same Iceberg snapshots, just gated.
+          </p>
+        </div>
+        <div className="flex flex-col items-end gap-1.5 shrink-0">
+          <div className="inline-flex items-center gap-1.5 rounded-sm px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-wider text-white" style={{ background: '#9a3412' }}>
+            GX Core · OSS
+          </div>
+          <div className="text-[10px] text-graphite-500 font-mono">Fivetran-stewarded</div>
+        </div>
+      </header>
+
+      <div className="grid grid-cols-2 md:grid-cols-4 divide-y-0 md:divide-x divide-graphite-100">
+        <RecoveryTile label="Expectation suites"     big={String(totals.suites)} sub="across bronze · silver · gold layers" />
+        <RecoveryTile label="Expectations · today"   big={`${totals.pass}/${totals.exp}`} sub={`${warns} warn · 0 errors · gates Silver promotion`} color={warns ? '#b45309' : '#16a34a'} />
+        <RecoveryTile label="Checkpoint cadence"     big="every sync" sub="triggered by Fivetran sync-complete · runs before dbt build" />
+        <RecoveryTile label="Failed-expectation queue" big="1 row" sub="quality lab lot-number regex mismatch · held in dlq.gx_quarantine · auto-retried after suite update" color="#b45309" />
+      </div>
+
+      <div className="overflow-x-auto border-t border-graphite-100">
+        <table className="min-w-full text-sm" style={{ fontVariantNumeric: 'tabular-nums' }}>
+          <thead className="border-b border-graphite-200" style={{ background: '#f5f5f0' }}>
+            <tr>
+              <Th>Layer</Th>
+              <Th>Suite</Th>
+              <Th>Table under test</Th>
+              <Th align="right">Expectations</Th>
+              <Th align="right">Last run</Th>
+              <Th>What it asserts</Th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-graphite-100">
+            {GX_SUITES.map((s) => {
+              const ok = s.passing === s.expectations;
+              return (
+                <tr key={s.suite} className="hover:bg-[#f5f5f0] cursor-default">
+                  <td className="px-4 py-2.5"><LayerChip layer={s.layer} /></td>
+                  <td className="px-4 py-2.5 font-mono text-[12px] text-graphite-900">{s.suite}</td>
+                  <td className="px-4 py-2.5 text-xs text-graphite-600 font-mono">{s.table}</td>
+                  <td className="px-4 py-2.5 text-right font-semibold" style={{ color: ok ? '#16a34a' : '#b45309' }}>
+                    {s.passing}/{s.expectations}
+                    {!ok && <span className="ml-1 text-[10px] uppercase tracking-wider">warn</span>}
+                  </td>
+                  <td className="px-4 py-2.5 text-right text-xs text-graphite-600 font-mono">{s.last_run}</td>
+                  <td className="px-4 py-2.5 text-xs text-graphite-700 leading-snug max-w-md">{s.why}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-0 divide-y md:divide-y-0 md:divide-x divide-graphite-100 border-t border-graphite-100">
+        <div className="p-5">
+          <div className="text-[10px] uppercase tracking-[0.16em] text-graphite-500 font-bold mb-3">Sample expectation suite · vantex.iiot.sensor_readings.ranges</div>
+          <pre className="font-mono text-[11.5px] leading-relaxed overflow-x-auto rounded-sm p-3" style={{ background: '#0b2545', color: '#e6e9f0' }}><code>{`# vantex_iiot_sensor_readings_ranges.yml
+expectation_suite_name: vantex.iiot.sensor_readings.ranges
+data_asset_name: bronze.iiot__sensor_readings
+
+expectations:
+  - expectation_type: expect_column_values_to_not_be_null
+    kwargs: { column: machine_id }
+  - expectation_type: expect_column_values_to_be_in_set
+    kwargs:
+      column: sensor_type
+      value_set: [temperature, vibration, current, pressure, rpm]
+  - expectation_type: expect_column_values_to_be_between
+    kwargs: { column: temperature_c, min_value: -40, max_value: 250 }
+  - expectation_type: expect_column_values_to_be_between
+    kwargs: { column: vibration_g, min_value: 0, max_value: 50 }
+  - expectation_type: expect_column_pair_values_a_to_be_less_than_b
+    kwargs: { column_A: measured_at, column_B: ingested_at }
+  - expectation_type: expect_table_row_count_to_be_between
+    kwargs: { min_value: 12000000, max_value: 200000000 }
+`}</code></pre>
+        </div>
+        <div className="p-5">
+          <div className="text-[10px] uppercase tracking-[0.16em] text-graphite-500 font-bold mb-3">How this fits the stack</div>
+          <ul className="space-y-2.5 text-sm">
+            <Policy label="Fivetran moves" value="MES, SAP S/4HANA, IIoT, and quality-lab feeds into Bronze (Iceberg)" />
+            <Policy label="Great Expectations validates" value="Bronze landings against suites before Silver promotion" />
+            <Policy label="dbt transforms" value="Silver + Gold marts; dbt tests assert SQL-level constraints" />
+            <Policy label="Failed rows" value="route to dlq.gx_quarantine on the same lake; retried after suite update" />
+            <Policy label="Open source" value="GX Core remains community-driven; Fivetran funds maintenance, ecosystem, and engineering investment" />
+            <Policy label="Community" value="github.com/great-expectations/great_expectations · thousands of teams use GX outside Fivetran's customer base" />
+          </ul>
+          <div className="mt-4 pt-3 border-t border-graphite-100 text-[11px] text-graphite-500 leading-relaxed">
+            On May 13, 2026 Fivetran announced it is becoming steward of the Great Expectations open
+            source community and the GX Core project, supporting ongoing maintenance, ecosystem
+            integrations, and community engagement. Same open project, backed by sustained engineering.
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function BeforeAfterPanel() {
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 gap-5">
