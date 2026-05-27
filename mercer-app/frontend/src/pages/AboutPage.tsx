@@ -159,7 +159,7 @@ const STACK = [
   { layer: 'Transform', name: 'dbt-snowflake',                  note: 'Bronze → silver → gold → platinum · 297 models · 712 tests' },
   { layer: 'Query',     name: 'Snowflake + AWS Athena',         note: 'Both engines read the same Iceberg tables — no replication' },
   { layer: 'Agents',    name: 'dbt-wizard Sub-agents',          note: 'Read platinum.sem_ops_intel · author missing gold models in 90s' },
-  { layer: 'Frontend',  name: 'React 18 + Vite + Tailwind 3',   note: 'Static SPA on GitHub Pages · reads JSON snapshot · Recharts' },
+  { layer: 'Frontend',  name: 'React 18 + Vite + Tailwind 3',   note: 'Static SPA on GitHub Pages · reads the gold layer via Snowflake / Athena / Trino · Recharts' },
 ];
 
 const DATA_SOURCES = [
