@@ -240,7 +240,7 @@ export default function Layout() {
           <div>
             <div className="text-[11px] font-mono uppercase tracking-[0.16em] text-safety-bright mb-2">Data Pipeline</div>
             <p className="leading-relaxed text-white/70">
-              SAP S/4HANA · Rockwell FactoryTalk MES · OSIsoft PI · Ignition SCADA &rarr; Fivetran &rarr; Iceberg on S3 &rarr; dbt &rarr; Great Expectations &rarr; Snowflake / Athena / Trino &rarr; Cortex
+              SAP S/4HANA · Rockwell FactoryTalk MES · OSIsoft PI · Ignition SCADA &rarr; Fivetran &rarr; Iceberg on S3 &rarr; dbt labs + dbt-wizard &rarr; Great Expectations &rarr; Snowflake / Athena / Trino &rarr; run-time agents
             </p>
           </div>
           <div>

@@ -3,6 +3,28 @@
   "refreshed_at": "2026-05-20T11:42:00Z",
   "connectors": [
     {
+      "name": "MES Production (SQL Server)",
+      "source": "sql_server",
+      "mechanism": "Fivetran",
+      "fivetran_id": "subsisted_grease",
+      "fivetran_url": "https://fivetran.com/dashboard/connectors/subsisted_grease",
+      "status": "healthy",
+      "last_sync_minutes": 12,
+      "rows_synced_24h": 482000,
+      "latency_target_min": 15
+    },
+    {
+      "name": "SAP S/4 (Oracle)",
+      "source": "oracle",
+      "mechanism": "Fivetran",
+      "fivetran_id": "intestine_conditioning",
+      "fivetran_url": "https://fivetran.com/dashboard/connectors/intestine_conditioning",
+      "status": "healthy",
+      "last_sync_minutes": 12,
+      "rows_synced_24h": 482000,
+      "latency_target_min": 15
+    },
+    {
       "name": "SAP S/4HANA",
       "source": "Vantex ERP (production)",
       "mechanism": "Fivetran",

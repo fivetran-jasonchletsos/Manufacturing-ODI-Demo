@@ -86,7 +86,7 @@ const ENGINES: QueryEngine[] = [
   {
     name: 'Snowflake',
     status: 'active',
-    description: 'Primary engine for the Vantex gold layer. Reads Iceberg externals through Horizon catalog; auto-suspends between queries. Where the front end, the cost-estimator, and Cortex Analyst all land.',
+    description: 'Primary engine for the Vantex gold layer. Reads Iceberg externals through Horizon catalog; auto-suspends between queries. Where the front end, the cost-estimator, and the dbt-wizard run-time agents all land.',
     sample_query: `SELECT
   m.plant_id, m.machine_id, m.machine_class,
   o.production_hour,

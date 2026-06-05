@@ -9,7 +9,7 @@
 | `bronze` | Raw landing — one table per source object, no transforms beyond column rename / cast | Iceberg incremental (append) | Engineers only |
 | `silver` | Conformed dims + facts — typed, de-duped, joined to canonical keys (plant, line, asset, shift) | Iceberg incremental (merge) | Engineers + power analysts |
 | `gold` | Business facts that match how plant directors think — OEE per shift, downtime events with attributed root cause, predictive alerts | Iceberg merge / view | All analysts, BI, agents |
-| `platinum` | Agent-facing semantic — denormalized for Cortex; one row = one question | Iceberg view | Cortex agents, embedded apps |
+| `platinum` | Agent-facing semantic — denormalized for run-time agents; one row = one question | Iceberg view | run-time agents, embedded apps |
 
 ## Key models
 
@@ -21,12 +21,12 @@
   ServiceNow work-order).
 - `gold.fct_quality_lot` — per-lot first-time-quality with defect-mode
   Pareto roll-up.
-- `gold.fct_predictive_alerts` — output of the Cortex predictive
+- `gold.fct_predictive_alerts` — output of the dbt-wizard run-time agent predictive
   maintenance model. Reads `silver.sensor_signal_5m`; writes back the
   P10/P50 days-to-failure, recommended action, and confidence.
 - `gold.fct_energy_per_part` — per-part kWh and kgCO2e. The model that
   feeds Mercer's customer Scope-3 export to GM and Stellantis.
-- `platinum.sem_ops_intel` — single denormalized table the Cortex agent
+- `platinum.sem_ops_intel` — single denormalized table the run-time agent
   reads. Wide; one row per plant/line/shift/asset combination with all
   facts pre-joined.
 

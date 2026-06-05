@@ -244,7 +244,7 @@
   ],
   "consumers": [
     {
-      "name": "Snowflake Cortex Agent — Plant Ops",
+      "name": "Run-time agent — Plant Ops",
       "reads": "platinum.sem_ops_intel"
     },
     {

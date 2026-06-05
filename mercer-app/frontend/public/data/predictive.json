@@ -1,6 +1,6 @@
 {
   "schema": "predictive_maintenance_v1",
-  "generated_by": "Snowflake Cortex agent reading silver.sensor_signal_5m — scores written to gold layer via dbt",
+  "generated_by": "dbt-wizard run-time agent reading silver.sensor_signal_5m — scores written to gold layer via dbt",
   "flagged": [
     {
       "asset_id": "STH-L8-CP7",

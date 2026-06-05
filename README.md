@@ -19,7 +19,7 @@ All data on this site is synthetic.
 
 - **Plant Floor** — KPI tiles, 30-day plant OEE trend, top 3 issues, per-plant line summary
 - **Quality** — FTQ by part family, defect Pareto, downtime causes by plant
-- **Predictive Maintenance** — eight machines flagged by the Cortex agent with cost-of-failure vs cost-of-PM
+- **Predictive Maintenance** — eight machines flagged by the run-time agent with cost-of-failure vs cost-of-PM
 - **Sustainability** — Scope 1/2/3, per-part energy and CO2e, OEM Scope-3 reporting angle
 - **ODI Architecture** — lineage nodes by layer, edges, downstream consumers
 - **Pipeline** — Fivetran connector status, dbt layers, failure simulator
@@ -39,11 +39,11 @@ ServiceNow · Salesforce · Workday
    │  bronze · silver · gold · platinum   │
    └──────────────────────────────────────┘
               │
-              ▼  dbt-snowflake (297 models, 712 tests)
+              ▼  dbt labs + dbt-wizard (297 models, 712 tests)
               │
    ┌──────────────────────────────────────┐
    │  Snowflake · AWS Athena              │
-   │  Tableau · Power BI · Cortex Agents  │
+   │  Tableau · Power BI · run-time agents │
    └──────────────────────────────────────┘
 ```
 

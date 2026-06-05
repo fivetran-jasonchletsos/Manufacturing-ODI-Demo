@@ -236,7 +236,7 @@ write('quality.json', quality);
 // PREDICTIVE MAINTENANCE — eight flagged machines
 const predictive = {
   schema: 'predictive_maintenance_v1',
-  generated_by: 'gold.fct_predictive_alerts (Cortex/dbt model)',
+  generated_by: 'gold.fct_predictive_alerts (dbt-wizard run-time agent model)',
   flagged: [
     {
       asset_id: 'STH-L8-CP7',  plant: 'Sterling Heights MI', line: 'Crimp Press 7',
@@ -453,7 +453,7 @@ const iceberg = {
     { from: 'go_pred',       to: 'pl_ops_agent',  via: 'dbt' },
   ],
   consumers: [
-    { name: 'Snowflake Cortex Agent — Plant Ops', reads: 'platinum.sem_ops_intel' },
+    { name: 'Run-time agent — Plant Ops',         reads: 'platinum.sem_ops_intel' },
     { name: 'Tableau exec dashboard',             reads: 'gold.fct_oee_shift, gold.fct_downtime_events' },
     { name: 'Power BI plant directors',           reads: 'gold.fct_oee_shift' },
     { name: 'Predictive maintenance app',         reads: 'gold.fct_predictive_alerts' },
