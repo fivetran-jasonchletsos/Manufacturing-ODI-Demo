@@ -15,6 +15,7 @@ import OdiDbtWizardPage from './pages/OdiDbtWizardPage';
 import WizardScenarioPage from './pages/WizardScenarioPage';
 import WizardLivePage from './pages/WizardLivePage';
 import WizardOutcomePage from './pages/WizardOutcomePage';
+import ActivationLivePage from './pages/ActivationLivePage';
 
 export default function App() {
   return (
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="/dbt-wizard/scenario" element={<WizardScenarioPage />} />
           <Route path="/dbt-wizard/live" element={<WizardLivePage />} />
           <Route path="/dbt-wizard/outcome" element={<WizardOutcomePage />} />
+          <Route path="/activations-live" element={<ActivationLivePage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

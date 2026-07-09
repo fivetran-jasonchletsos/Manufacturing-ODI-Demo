@@ -31,12 +31,13 @@ const NAV: NavEntry[] = [
     kind: 'group',
     label: 'ODI',
     rootTo: '/architecture',
-    matchPrefixes: ['/architecture', '/pipeline', '/policy', '/about'],
+    matchPrefixes: ['/architecture', '/pipeline', '/policy', '/about', '/activations-live'],
     children: [
-      { to: '/architecture', label: 'Architecture' },
-      { to: '/pipeline',     label: 'Pipeline' },
-      { to: '/policy',       label: 'OT/IT Policy' },
-      { to: '/about',        label: 'About' },
+      { to: '/architecture',     label: 'Architecture' },
+      { to: '/pipeline',         label: 'Pipeline' },
+      { to: '/policy',           label: 'OT/IT Policy' },
+      { to: '/about',            label: 'About' },
+      { to: '/activations-live', label: 'Activations' },
     ],
   },
 ];
@@ -240,8 +241,19 @@ export default function Layout() {
           <div>
             <div className="text-[11px] font-mono uppercase tracking-[0.16em] text-safety-bright mb-2">Data Pipeline</div>
             <p className="leading-relaxed text-white/70">
-              SAP S/4HANA · Rockwell FactoryTalk MES · OSIsoft PI · Ignition SCADA &rarr; Fivetran &rarr; Iceberg on S3 &rarr; dbt labs + dbt-wizard &rarr; Great Expectations &rarr; Snowflake / Athena / Trino &rarr; run-time agents
+              SAP S/4HANA · Rockwell FactoryTalk MES · OSIsoft PI · Ignition SCADA &rarr; Fivetran &rarr; Iceberg on S3 &rarr; dbt labs + dbt-wizard &rarr; Great Expectations &rarr; Snowflake / Athena / Trino &rarr; run-time agents &rarr; NewCo Activations &rarr; IBM Maximo Application Suite
             </p>
+            <div className="flex items-center gap-2 text-[11px] mt-3">
+              <span className="inline-flex items-center gap-1.5 border border-white/15 bg-white/5 px-2 py-1">
+                <span className="inline-flex items-center justify-center h-4 px-1 text-[9px] font-bold text-white" style={{ background: '#0073FF' }}>N</span>
+                <span className="font-semibold text-white">NewCo</span>
+              </span>
+              <span className="text-white/40">+</span>
+              <span className="inline-flex items-center gap-1.5 border border-white/15 bg-white/5 px-2 py-1">
+                <span className="inline-flex items-center justify-center h-4 px-1 text-[9px] font-bold text-white" style={{ background: '#29B5E8' }}>❄</span>
+                <span className="font-semibold text-white">Snowflake</span>
+              </span>
+            </div>
           </div>
           <div>
             <div className="text-[11px] font-mono uppercase tracking-[0.16em] text-safety-bright mb-2">Open Standards</div>

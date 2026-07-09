@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import { useJSON } from '../api/data';
 import { Loading, ErrorState } from '../components/Skeleton';
@@ -101,6 +102,15 @@ export default function PredictivePage() {
                     <div className="font-display text-base text-graphite-900 tabular">{roi.toFixed(0)}×</div>
                   </div>
                 </div>
+
+                {f.asset_id === 'STH-L8-CP7' && (
+                  <Link
+                    to="/activations-live"
+                    className="mt-3 inline-flex items-center gap-1.5 border border-safety/50 bg-safety/10 px-2.5 py-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-safety-dim hover:bg-safety/20 transition-colors"
+                  >
+                    Trigger NewCo Activation &rarr; dispatch Maximo work order
+                  </Link>
+                )}
               </div>
             );
           })}

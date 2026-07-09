@@ -10,8 +10,10 @@
 // render in the recording even if connectors are paused.
 
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import { AliveMedallion, type SourceNode, type EngineNode, type ConsumerRole } from '../components/AliveMedallion';
+import ProductStageRail from '../components/ProductStageRail';
 
 const MFG_SOURCES: SourceNode[] = [
   { id: 'mes',     label: 'MES Production',      sub: 'SQL Server log-CDC',     logo: 'sqlserver', freshness: '38s lag',  status: 'healthy', pipelineUrl: 'https://fivetran.com/dashboard/connectors/subsisted_grease' },
@@ -199,6 +201,8 @@ export default function ArchitecturePage() {
         <h2 className="font-display text-2xl text-graphite-900 mb-6">
           From four operational sources to one governed gold layer
         </h2>
+
+        <ProductStageRail accent="#caa600" />
 
         <AliveMedallion
           sources={MFG_SOURCES}
@@ -391,6 +395,9 @@ export default function ArchitecturePage() {
           <span className="uppercase tracking-wider font-bold">dbt build · merged into Fivetran</span>
         </div>
       </section>
+
+      {/* ── Activations — NewCo native reverse-ETL, right after Transformations ── */}
+      <ActivationsPanel />
 
       {/* ── Data Quality — Great Expectations (Fivetran-stewarded OSS) ───── */}
       <GreatExpectationsPanel />
@@ -860,6 +867,64 @@ expectations:
   );
 }
 
+// =============================================================================
+// ActivationsPanel — NewCo Activations, the native reverse-ETL stage that
+// sits directly after Transformations. TRIGGER / DESTINATION / OUTCOME below
+// are vertical-specific to Vantex's predictive-maintenance-to-Maximo workflow.
+// =============================================================================
+function ActivationsPanel() {
+  // TRIGGER — the gold-layer condition that fires the sync
+  const TRIGGER = "gold.fct_predictive_maintenance flags a machine at risk_score >= 0.85 within the 7-day risk window, newly flagged or re-scored upward since the last sync (risk_score >= 0.85 AND risk_window = '7d')";
+  // DESTINATION — the downstream system NewCo Activations pushes into
+  const DESTINATION = 'IBM Maximo Application Suite · WORKORDER (Manage / EAM)';
+  // OUTCOME — the business payoff the SE narrates
+  const OUTCOME = "Crimp Press 7 at Sterling Heights MI (asset STH-L8-CP7, 88% confidence, 5-9 days to failure) gets a Priority-1 Maximo work order dispatched inside the same 5-9 minute sync cadence the gold layer already runs on — $171,500 in avoided failure cost ($184,000 reactive bearing failure vs. $12,500 planned PM) instead of hours waiting for a human to notice the score and hand-key a ticket.";
+
+  return (
+    <section className="mb-8 steel-card overflow-hidden" style={cardStyle}>
+      <header className="flex items-start justify-between gap-4" style={cardHeaderStyle}>
+        <div>
+          <div className="eyebrow" style={{ color: '#caa600' }}>Activations · NewCo</div>
+          <h2 className="font-display text-xl text-graphite-900 mt-0.5">
+            The gold layer doesn't just get queried. It gets acted on.
+          </h2>
+          <p className="text-sm text-graphite-600 mt-1 max-w-3xl">
+            Activations is the fourth native stage in NewCo, immediately after Transformations. It
+            reads straight from the same Iceberg gold tables dbt just built and syncs the result to
+            an operational system of record &mdash; no separate reverse-ETL vendor, no second copy of
+            the data, no second connector to maintain.
+          </p>
+        </div>
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-wider text-graphite-900 shrink-0" style={{ background: '#ffd60a' }}>
+          Activations
+        </div>
+      </header>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-graphite-100">
+        <div className="p-5">
+          <div className="text-[10px] uppercase tracking-[0.16em] text-graphite-500 font-bold mb-2">Trigger · gold layer</div>
+          <p className="text-sm text-graphite-700 leading-relaxed">{TRIGGER}</p>
+        </div>
+        <div className="p-5">
+          <div className="text-[10px] uppercase tracking-[0.16em] text-graphite-500 font-bold mb-2">Destination</div>
+          <p className="text-sm text-graphite-700 leading-relaxed font-mono">{DESTINATION}</p>
+        </div>
+        <div className="p-5">
+          <div className="text-[10px] uppercase tracking-[0.16em] text-graphite-500 font-bold mb-2">Outcome</div>
+          <p className="text-sm text-graphite-700 leading-relaxed">{OUTCOME}</p>
+        </div>
+      </div>
+
+      <div className="px-5 py-3 border-t border-graphite-100 flex items-center justify-between text-[11px] text-graphite-500" style={{ background: '#e8e6db' }}>
+        <span>Connections &rarr; Destinations &rarr; Transformations &rarr; <strong style={{ color: '#caa600' }}>Activations</strong> &middot; one platform, one lineage graph</span>
+        <Link to="/activations-live" className="uppercase tracking-wider font-bold hover:underline" style={{ color: '#caa600' }}>
+          Watch it sync &rarr;
+        </Link>
+      </div>
+    </section>
+  );
+}
+
 function BeforeAfterPanel() {
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -876,6 +941,12 @@ function BeforeAfterPanel() {
           <div><div className="text-graphite-500 text-xs">Daily run-rate</div><div className="font-display text-2xl text-graphite-900">$26.40</div></div>
           <div><div className="text-graphite-500 text-xs">Schema change</div><div className="font-display text-lg text-graphite-900">6-min lock</div></div>
         </div>
+        <div className="col-span-2 pt-3 mt-3 border-t border-graphite-100">
+          <div className="text-graphite-500 text-xs">Reverse-ETL hop</div>
+          <div className="font-display text-lg text-graphite-900">
+            Census + Hightouch <span className="text-xs font-sans normal-case font-normal text-graphite-500">(3rd-party, one more copy)</span>
+          </div>
+        </div>
       </div>
       <div className="steel-card p-6 border-l-4" style={{ ...cardStyle, borderLeftColor: '#caa600' }}>
         <div className="eyebrow" style={{ color: '#caa600' }}>After · Open Data Infrastructure</div>
@@ -884,12 +955,19 @@ function BeforeAfterPanel() {
        → dbt → Iceberg silver
        → dbt → Iceberg gold
        ↳ Snowflake · Athena · DuckDB · Trino · Spark
-         (all reading the same bytes, no copies)`}</pre>
+         (all reading the same bytes, no copies)
+       → NewCo Activations (native) → IBM Maximo`}</pre>
         <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
           <div><div className="text-graphite-500 text-xs">Copies of the data</div><div className="font-display text-2xl" style={{ color: '#caa600' }}>1</div></div>
           <div><div className="text-graphite-500 text-xs">Avg end-to-end latency</div><div className="font-display text-2xl" style={{ color: '#caa600' }}>6 min</div></div>
           <div><div className="text-graphite-500 text-xs">Daily run-rate</div><div className="font-display text-2xl" style={{ color: '#caa600' }}>$7.60</div></div>
           <div><div className="text-graphite-500 text-xs">Schema change</div><div className="font-display text-lg" style={{ color: '#caa600' }}>milliseconds</div></div>
+        </div>
+        <div className="col-span-2 pt-3 mt-3 border-t border-graphite-100">
+          <div className="text-graphite-500 text-xs">Reverse-ETL hop</div>
+          <div className="font-display text-lg" style={{ color: '#caa600' }}>
+            NewCo Activations <span className="text-xs font-sans normal-case font-normal text-graphite-500">(native, zero extra copies)</span>
+          </div>
         </div>
       </div>
     </section>
